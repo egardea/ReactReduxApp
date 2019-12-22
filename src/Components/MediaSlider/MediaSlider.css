@@ -1,0 +1,30 @@
+#container{
+    overflow: hidden;
+}
+.media-container{
+    position: relative;
+}
+.media-wrapper{
+    display: flex;
+}
+.media-slide{
+    text-decoration: none;
+    color: white;
+}
+.media-slide > span{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    z-index: 1;
+}
+.media-figure{
+    position: relative;
+    backface-visibility: hidden;
+    height: 200px;
+    width: 130px;
+}
+.media-figure > img{
+    height: 200px;
+    width: 130px;
+    border-radius: 5px;
+}
