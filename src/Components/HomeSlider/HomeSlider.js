@@ -2,7 +2,7 @@ import React from 'react'
 
 import './HomeSlider.css'
 
-function HomeSlider() {
+const HomeSlider = (props) => {
     return (
         <div className="swiper-container homeslider-container">
             <div className="swiper-wrapper homeslider-wrapper">

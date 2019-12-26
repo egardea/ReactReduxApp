@@ -14,7 +14,7 @@ class Home extends Component {
                 <Nav />
                 <HomeSlider />
                 <main>
-                    <MediaSlider />
+                    <MediaSlider title="Erik" />
                 </main>
             </div>
         )
