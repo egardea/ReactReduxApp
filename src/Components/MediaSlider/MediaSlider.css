@@ -12,10 +12,10 @@
     color: white;
 }
 .media-slide > span{
-    position: absolute;
-    top: 5px;
+    position: relative;
+    top: 25px;
     left: 5px;
-    z-index: 1;
+    z-index: 2;
 }
 .media-figure{
     position: relative;

@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Nav from '../Nav/Nav';
 import HomeSlider from '../HomeSlider/HomeSlider';
 import MediaSlider from '../MediaSlider/MediaSlider';
+import MediaButtons from '../MediaButtons/MediaButtons';
 
 import './Home.css'
 
@@ -14,7 +15,8 @@ class Home extends Component {
                 <Nav />
                 <HomeSlider />
                 <main>
-                    <MediaSlider title="Erik" />
+                    <MediaButtons />
+                    <MediaSlider title="Now Playing" />
                 </main>
             </div>
         )
