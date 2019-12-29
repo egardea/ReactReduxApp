@@ -1,5 +1,6 @@
 #container{
     overflow: hidden;
+    padding: 50px 0;
 }
 .media-container{
     position: relative;

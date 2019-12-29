@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import './Nav.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 class nav extends Component {
     render() {
@@ -21,7 +21,7 @@ class nav extends Component {
                         name="search"
                         placeholder="Search Flix..."
                         />
-                        <button type="submit" value="submit">Search</button>
+                        <button type="submit" value="submit"><FontAwesomeIcon icon={faSearch}/></button>
                     </form>
                 </div>
                 <div className="nav-home">
