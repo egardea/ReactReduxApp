@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Summary = () => {
+const Summary = (props) => {
     return (
         <section id="summary">
             <h1>Summary</h1>

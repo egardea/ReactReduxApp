@@ -1,16 +1,22 @@
 #container{
     overflow: hidden;
-    padding: 50px 0;
+    padding: 50px 0 100px 0;
+}
+#container > div > h1 {
+    text-align: center;
 }
 .media-container{
     position: relative;
 }
 .media-wrapper{
     display: flex;
+    justify-content: center;
+    overflow: hidden;
 }
 .media-slide{
     text-decoration: none;
     color: white;
+    padding: 0 50px;
 }
 .media-slide > span{
     position: relative;
@@ -22,10 +28,27 @@
     position: relative;
     backface-visibility: hidden;
     height: 200px;
-    width: 130px;
+    width: auto;
 }
 .media-figure > img{
     height: 200px;
-    width: 130px;
+    width: auto;
     border-radius: 5px;
+}
+
+@media only screen and  (max-width: 1023px){
+    .media-figure{
+        height: 150px;
+    }
+    .media-figure > img{
+        height: 150px;
+    }
+    .media-slide{
+        padding: 0 25px;
+    }
+}
+@media only screen and  (max-width: 525px){
+    .media-slide{
+        padding: 0 10px;
+    }
 }

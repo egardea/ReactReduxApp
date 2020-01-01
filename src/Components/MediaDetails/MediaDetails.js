@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
+import Swiper from 'swiper';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretLeft } from '@fortawesome/free-solid-svg-icons';
@@ -12,7 +13,7 @@ import Reviews from './Reviews';
 class MediaDetails extends Component {
     
     render(){
-
+        
         return (
             <div className="media-details-container">
 

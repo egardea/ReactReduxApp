@@ -9,7 +9,7 @@ class nav extends Component {
     render() {
         return (
             <nav className="nav">
-                <div class="nav-icon">
+                <div className="nav-icon">
                     <span>
                         Flix
                     </span>

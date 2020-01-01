@@ -4,8 +4,14 @@
     box-sizing: border-box;
 }
 .homeslider-container{
-    overflow: hidden;
     position: relative;
+    overflow: hidden;
+}
+.homeslider-wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 93vh;
 }
 .homeslider-slide{
     width: 100%;
@@ -45,6 +51,23 @@
     left: 25px;
 }
 @media only screen and  (max-width: 1023px){
+    .homeslider-wrapper{
+        height: 40vh;
+    }
+    .homeslider-figure{
+        height: 40vh;
+    }
+    .homeslider-figure::before{
+        height: 40vh;
+    }
+    .homeslider-figure > img{
+        height: 40vh;
+    }
+}
+@media only screen and  (max-width: 525px){
+    .homeslider-wrapper{
+        height: 33vh;
+    }
     .homeslider-figure{
         height: 33vh;
     }

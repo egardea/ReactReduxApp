@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Trailer = () => {
+const Trailer = (props) => {
     return (
         <section id="trailers">
             <h1>Trailers</h1>
