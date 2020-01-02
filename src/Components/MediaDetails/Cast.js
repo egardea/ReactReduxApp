@@ -5,26 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 const Cast = (props) => {
-    
-    (() => {
-        const sliderElement = document.querySelector('.cast-container');
-        if(!sliderElement){
-            return;
-        }
-
-        const slider = new Swiper(sliderElement, {
-            init: true,
-            slidesPerView: 5,
-            spaceBetween: 30,
-            loop: true,
-            observer: true,
-
-            navigation: {
-                nextEl: 'cast-slide-next',
-                prevEl: 'cast-slide-prev'
-            }
-        })
-    })();
 
     return (
         <section>

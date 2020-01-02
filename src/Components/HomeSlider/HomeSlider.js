@@ -1,32 +1,8 @@
-import React, {Component} from 'react';
-import Swiper from 'swiper';
+import React from 'react';
 
 import './HomeSlider.css'
 
-class HomeSlider extends Component {
-    render(){
-        (() => {
-            const sliderEl = document.querySelector('.homeslider-container');
-            if(!sliderEl) {
-                return;
-            };
-
-            const slider = new Swiper(sliderEl, {
-                init: true,
-                direction: 'verticle',
-                spaceBetween: 0,
-                slidesPerView: 1,
-                loop: true,
-                observer: true,
-                observeSlideChildren: true,
-
-                
-                autoplay: {
-                    delay: 5000,
-                    disableOnInteraction: false,
-                },
-            });
-        })();
+const HomeSlider = (props) => {
 
         return (
             <div className="swiper-container homeslider-container">
@@ -64,6 +40,5 @@ class HomeSlider extends Component {
                 </div>
             </div>
         )
-    }
 };
 export default HomeSlider;
