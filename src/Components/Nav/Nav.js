@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 import './Nav.css';
 
@@ -6,6 +7,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 class nav extends Component {
+    state = {
+        text: ''
+    }
+
+    onChange = e => {
+        this.setState({text: e.target.value});
+    }
+
+
     render() {
         return (
             <nav className="nav">
@@ -20,8 +30,11 @@ class nav extends Component {
                         type="text"
                         name="search"
                         placeholder="Search Flix..."
+                        onChange={this.onChange}
                         />
-                        <button type="submit" value="submit"><FontAwesomeIcon icon={faSearch}/></button>
+                        <Link>
+                            <button type="submit" value="submit"><FontAwesomeIcon icon={faSearch}/></button>
+                        </Link>
                     </form>
                 </div>
                 <div className="nav-home">

@@ -9,19 +9,20 @@ import MediaDetails from './Components/MediaDetails/MediaDetails';
 
 import apiKeyConfig from './Actions/ApiKeyConfig';
 import searchTrending from './Actions/MovieActions/Trending';
-
-
+import searchTrendingTV from './Actions/TVActions/Trending';
 
 class App extends Component {
   componentDidMount(){
     this.props.apiKeyConfig(`https://api.themoviedb.org/3/configuration?api_key=${this.props.apiKey}`);
     this.props.searchTrending(`https://api.themoviedb.org/3/trending/movie/day?api_key=${this.props.apiKey}`);
+    this.props.searchTrendingTV(`https://api.themoviedb.org/3/trending/tv/day?api_key=${this.props.apiKey}`);
+
   }
   render() {
     return (
-      <div>
+      <Router>
         <Home />
-      </div>
+      </Router>
     );
   }
 }
@@ -32,7 +33,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   apiKeyConfig: url => dispatch(apiKeyConfig(url)),
-  searchTrending: url => dispatch(searchTrending(url))
+  searchTrending: url => dispatch(searchTrending(url)),
+  searchTrendingTV: url => dispatch(searchTrendingTV(url)),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
