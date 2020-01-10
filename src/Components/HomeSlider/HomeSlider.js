@@ -1,44 +1,52 @@
 import React from 'react';
+import Swiper from 'swiper';
+import { Link } from 'react-router-dom';
 
 import './HomeSlider.css'
 
 const HomeSlider = (props) => {
 
-        return (
-            <div className="swiper-container homeslider-container">
+    (() => {
+            const sliderEl = document.querySelector('.homeslider-container');
+            if(!sliderEl) {
+                return;
+            }
+            const slider = new Swiper(sliderEl, {
+                init: true,
+                direction: 'verticle',
+                spaceBetween: 50,
+                slidesPerView: 1,
+                loop: true,
+                observer: true,
+                observeSlideChildren: true,
+
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+            });
+    })();
+
+    const config = props.config;
+
+    return (
+            <div className="homeslider-container">
                 <div className="swiper-wrapper homeslider-wrapper">
-                    <a href={"/"} className="swiper-slide homeslider-slide">
+                    {props.slides.map((cur) => (
+                        <Link href={"/"} key={cur.id} className="swiper-slide homeslider-slide">
                         <figure className="homeslider-figure">
-                            <img src={"http://hdqwalls.com/download/avengers-endgame-2019-official-poster-th-1920x1080.jpg"}  alt="title" />
+                            <img src={config.images ? config.images.secure_base_url + config.images.backdrop_sizes[2] + cur.backdrop_path : ''}  alt={cur.title} />
                         </figure>
                         <div className="homeslider-info">
                             <p>Trending</p>
-                            <h2>Title</h2>
-                            <p>Movie</p>
+                            <h2>{cur.title}</h2>
+                            <p>{cur.vote_average}</p>
                         </div>
-                    </a>
-                    <a href={"/"} className="swiper-slide homeslider-slide">
-                        <figure className="homeslider-figure">
-                            <img src={"https://hdqwalls.com/download/star-wars-the-rise-of-skywalker-2019-4k-mz-1920x1080.jpg"}  alt="title" />
-                        </figure>
-                        <div className="homeslider-info">
-                            <p>Trending</p>
-                            <h2>Title</h2>
-                            <p>Movie</p>
-                        </div>
-                    </a>
-                    <a href={"/"} className="swiper-slide homeslider-slide">
-                        <figure className="homeslider-figure">
-                            <img src={"http://hdqwalls.com/download/avengers-endgame-2019-official-poster-th-1920x1080.jpg"}  alt="title" />
-                        </figure>
-                        <div className="homeslider-info">
-                            <p>Trending</p>
-                            <h2>Title</h2>
-                            <p>Movie</p>
-                        </div>
-                    </a>
+                        </Link>
+                    ))}
                 </div>
             </div>
-        )
+    );
+
 };
 export default HomeSlider;

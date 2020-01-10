@@ -21,7 +21,7 @@
     border-radius: 5px;
     border: none;
 }
-#nav_search--form > button {
+#nav_search--form > a > button {
     width: 25%;
     height: 2rem;
     border-radius: 5px;

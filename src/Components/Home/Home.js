@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import HomeSlider from '../HomeSlider/HomeSlider';
@@ -9,12 +10,12 @@ import Footer from '../Footer/Footer';
 import './Home.css'
 
 class Home extends Component {
-    
+
     render() {
         return (
             <div>
                 <Nav />
-                <HomeSlider />
+                <HomeSlider slides={this.props.trendingMovies} config={this.props.config} />
                 <main>
                     <MediaButtons />
                     <MediaSlider title="Now Playing" />
@@ -28,4 +29,9 @@ class Home extends Component {
     }
 }
 
-export default Home;
+const mapStateToProps = state => ({
+    trendingMovies: state.trendingMovie.result,
+    config: state.apiKeyConfig,
+})
+
+export default connect(mapStateToProps)(Home);
