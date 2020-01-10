@@ -10,6 +10,8 @@ const MediaSlider = (props) => {
         <div id="container">
             <div className="swiper-container media-container">
             <h1>{props.title}</h1>
+            <FontAwesomeIcon icon={faChevronLeft} />
+            <FontAwesomeIcon icon={faChevronRight} />
                 <div className="swiper-wrapper media-wrapper">
                     <a href={"/"} className="swiper-slider media-slide">
                         <span><FontAwesomeIcon icon={faStar} /></span>

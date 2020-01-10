@@ -15,7 +15,7 @@ class Home extends Component {
         return (
             <div>
                 <Nav />
-                <HomeSlider slides={this.props.trendingMovies} config={this.props.config} />
+                <HomeSlider slides={this.props.trendingMovies} config={this.props.config} genreList={this.props.movieGenre} />
                 <main>
                     <MediaButtons />
                     <MediaSlider title="Now Playing" />
@@ -32,6 +32,7 @@ class Home extends Component {
 const mapStateToProps = state => ({
     trendingMovies: state.trendingMovie.result,
     config: state.apiKeyConfig,
+    movieGenre: state.movieGenre.genres,
 })
 
 export default connect(mapStateToProps)(Home);

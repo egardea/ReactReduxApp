@@ -14,7 +14,7 @@ const HomeSlider = (props) => {
             const slider = new Swiper(sliderEl, {
                 init: true,
                 direction: 'verticle',
-                spaceBetween: 50,
+                spaceBetween: 0,
                 slidesPerView: 1,
                 loop: true,
                 observer: true,
@@ -29,6 +29,16 @@ const HomeSlider = (props) => {
 
     const config = props.config;
 
+    const getGenreStr = id => {
+        let mainGenre;
+        props.genreList.forEach((genre) => {
+            if(genre.id === id[0]) {
+                return mainGenre = genre.name;
+            }
+        });
+        return mainGenre;
+    }
+
     return (
             <div className="homeslider-container">
                 <div className="swiper-wrapper homeslider-wrapper">
@@ -40,7 +50,7 @@ const HomeSlider = (props) => {
                         <div className="homeslider-info">
                             <p>Trending</p>
                             <h2>{cur.title}</h2>
-                            <p>{cur.vote_average}</p>
+                            <p>{getGenreStr(cur.genre_ids)} | {cur.vote_average}</p>
                         </div>
                         </Link>
                     ))}

@@ -1,4 +1,4 @@
-import { TV_GENRE } from '../types';
+import { TV_GENRE } from '../Types';
 import Axios from 'axios';
 
 const saveData = payload  => ({
@@ -8,7 +8,7 @@ const saveData = payload  => ({
 
 const tvGenre = url => dispatch => {
     Axios.get(url)
-    .then(response => dispatch(saveData(response.data.results)))
+    .then(response => dispatch(saveData(response.data.genres)))
     .catch(error => console.log(error));
 };
 
