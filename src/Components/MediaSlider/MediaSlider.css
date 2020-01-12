@@ -1,17 +1,24 @@
-#container{
-    overflow: hidden;
-    padding: 50px 0 100px 0;
-}
-#container > div > h1 {
-    text-align: center;
-}
 .media-container{
     position: relative;
+    overflow: hidden;
+    width: 75%;
+    margin: auto;
+}
+.media-btn-prev, .media-btn-next{
+    position: absolute;
+    top: 37%;
+    color: #f4f4f4;
+    font-size: 50px;
+    z-index: 1;
+    cursor: pointer;
+}
+.media-btn-next{
+    right: 0;
 }
 .media-wrapper{
     display: flex;
-    justify-content: center;
-    overflow: hidden;
+    flex-direction: row;
+    padding-bottom: 50px;
 }
 .media-slide{
     text-decoration: none;

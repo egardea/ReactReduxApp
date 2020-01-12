@@ -8,7 +8,7 @@ const saveData = payload => ({
 
 const movieNowPlaying = url => dispatch => {
     Axios.get(url)
-    .then(response => dispatch(saveData(response.data)))
+    .then(response => dispatch(saveData(response.data.results)))
     .catch(error => console.log(error));
 }
 export default movieNowPlaying;

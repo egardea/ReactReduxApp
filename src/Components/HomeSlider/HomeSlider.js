@@ -43,7 +43,7 @@ const HomeSlider = (props) => {
             <div className="homeslider-container">
                 <div className="swiper-wrapper homeslider-wrapper">
                     {props.slides.map((cur) => (
-                        <Link href={"/"} key={cur.id} className="swiper-slide homeslider-slide">
+                        <Link to={"/"} key={cur.id} className="swiper-slide homeslider-slide">
                         <figure className="homeslider-figure">
                             <img src={config.images ? config.images.secure_base_url + config.images.backdrop_sizes[2] + cur.backdrop_path : ''}  alt={cur.title} />
                         </figure>

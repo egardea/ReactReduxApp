@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import "./MediaSlider.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,63 +7,26 @@ import { faStar, faChevronRight, faChevronLeft } from '@fortawesome/free-solid-s
 
 const MediaSlider = (props) => {
 
+    const config = props.config;
+    const slides =  props.slides;
+
     return (
-        <div id="container">
-            <div className="swiper-container media-container">
+        <div className="swiper-container media-container">
             <h1>{props.title}</h1>
-            <FontAwesomeIcon icon={faChevronLeft} />
-            <FontAwesomeIcon icon={faChevronRight} />
                 <div className="swiper-wrapper media-wrapper">
-                    <a href={"/"} className="swiper-slider media-slide">
-                        <span><FontAwesomeIcon icon={faStar} /></span>
-                        <figure className="media-figure">
-                            <img src={"https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg"} alt={"title"} />
-                        </figure>
-                        <h4>Title</h4>
-                        <p>Genre</p>
-                    </a>
-                    <a href={"/"} className="swiper-slider media-slide">
-                        <span><FontAwesomeIcon icon={faStar} /></span>
-                        <figure className="media-figure">
-                            <img src={"https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg"} alt={"title"} />
-                        </figure>
-                        <h4>Title</h4>
-                        <p>Genre</p>
-                    </a>
-                    <a href={"/"} className="swiper-slider media-slide">
-                        <span><FontAwesomeIcon icon={faStar} /></span>
-                        <figure className="media-figure">
-                            <img src={"https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg"} alt={"title"} />
-                        </figure>
-                        <h4>Title</h4>
-                        <p>Genre</p>
-                    </a>
-                    <a href={"/"} className="swiper-slider media-slide">
-                        <span><FontAwesomeIcon icon={faStar} /></span>
-                        <figure className="media-figure">
-                            <img src={"https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg"} alt={"title"} />
-                        </figure>
-                        <h4>Title</h4>
-                        <p>Genre</p>
-                    </a>
-                    <a href={"/"} className="swiper-slider media-slide">
-                        <span><FontAwesomeIcon icon={faStar} /></span>
-                        <figure className="media-figure">
-                            <img src={"https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg"} alt={"title"} />
-                        </figure>
-                        <h4>Title</h4>
-                        <p>Genre</p>
-                    </a>
-                    <a href={"/"} className="swiper-slider media-slide">
-                        <span><FontAwesomeIcon icon={faStar} /></span>
-                        <figure className="media-figure">
-                            <img src={"https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg"} alt={"title"} />
-                        </figure>
-                        <h4>Title</h4>
-                        <p>Genre</p>
-                    </a>
+                    {slides ? slides.map((cur) => (
+                        <Link to={"/"} key={cur.id} className="swiper-slide media-slide">
+                            <span><FontAwesomeIcon icon={faStar} /></span>
+                            <figure className="media-figure">
+                                <img src={`${config.images ? config.images.secure_base_url : ''}${config.images ? config.images.poster_sizes[6] : ''}${cur.poster_path}`} alt={"title"} />
+                            </figure>
+                            <h4>Title</h4>
+                            <p>Genre</p>
+                        </Link>
+                    )) : ''}
                 </div>
-            </div>
+                <span className="media-btn-prev"><FontAwesomeIcon icon={faChevronLeft} /></span>
+                <span className="media-btn-next"><FontAwesomeIcon icon={faChevronRight} /></span>
         </div>
     )
 }
