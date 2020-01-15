@@ -21,7 +21,14 @@ class SearchResults extends Component{
         this.props.searchResult(`https://api.themoviedb.org/3/search/multi?api_key=${this.props.apiKey}&language=en-US&query=${this.props.match.params.id}&page=${this.state.page}&include_adult=false`);
     }
 
+    componentDidUpdate(nextProps) {
+        if(this.props.match.params.id !== nextProps.id){
+            this.props.searchResult(`https://api.themoviedb.org/3/search/multi?api_key=${this.props.apiKey}&language=en-US&query=${this.props.match.params.id}&page=${this.state.page}&include_adult=false&region=US`);
+        }
+    }
+
     render(){
+        const config = this.props.config;
         return (
             <div>
                 <Nav />
@@ -29,15 +36,17 @@ class SearchResults extends Component{
                     <h2>Search Results for</h2>
                     
                     <div className="search-wrapper">
-    
-                        <Link to={`/search-result/`} className="search-slide">
-                                <span><FontAwesomeIcon icon={faStar} /></span>
+
+                        {this.props.searchResults ? this.props.searchResults.results.map((cur) => 
+                        (
+                            <Link key={cur.id} to={`/search-result/${cur.id}`} className="search-slide">
+    <span><FontAwesomeIcon icon={faStar} /> {cur.vote_average}</span>
                                     <figure className="search-figure">
-                                        <img src={"https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg"} alt={"title"} />
+                                        <img src={`${config.images ? config.images.secure_base_url : ''}${config.images ? config.images.poster_sizes[6] : ''}${cur.poster_path}`} alt={cur.title} />
                                     </figure>
-                            <h4>Title</h4>
-                            <p>Genre</p>
-                        </Link>
+                            <h4>{cur.title}</h4>
+                            </Link>
+                        )) : ''}
     
                     </div>
     
@@ -50,7 +59,8 @@ class SearchResults extends Component{
 
 const mapStateToProps = state => ({
     apiKey: state.apiKeyConfig.apiKey,
-    searchResults: state.searchResult,
+    config: state.apiKeyConfig,
+    searchResults: state.searchResult.results,
 });
 
 const mapDispatchToProps = dispatch => ({

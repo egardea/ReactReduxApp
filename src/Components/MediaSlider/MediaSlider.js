@@ -18,7 +18,7 @@ const MediaSlider = (props) => {
                         <Link to={"/"} key={cur.id} className="swiper-slide media-slide">
                             <span><FontAwesomeIcon icon={faStar} /></span>
                             <figure className="media-figure">
-                                <img src={`${config.images ? config.images.secure_base_url : ''}${config.images ? config.images.poster_sizes[6] : ''}${cur.poster_path}`} alt={"title"} />
+                                <img src={`${config.images ? config.images.secure_base_url : ''}${config.images ? config.images.poster_sizes[6] : ''}${cur.poster_path}`} alt={cur.title} />
                             </figure>
                             <h4>Title</h4>
                             <p>Genre</p>

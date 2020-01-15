@@ -1,7 +1,6 @@
 import { SEARCH_RESULT } from "../Actions/Types"
 
 const initialState = {
-    results: []
 }
 
 export default function (state = initialState, action) {
