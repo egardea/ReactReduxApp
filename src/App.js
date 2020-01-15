@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route} from 'react-router-dom';
+import { Route, Switch} from 'react-router-dom';
 import { connect } from 'react-redux';
 import './App.css';
 
@@ -23,9 +23,11 @@ class App extends Component {
   }
   render() {
     return (
-      <Router>
-        <Home />
-      </Router>
+      <Switch>
+        <Route path="/search-result/:id" component={SearchResults} />
+        <Route path="/details/:type:id" component={MediaDetails} />
+        <Route path="/" component={Home} />
+      </Switch>
     );
   }
 }

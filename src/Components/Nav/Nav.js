@@ -7,8 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 class nav extends Component {
-    state = {
-        text: ''
+
+    state = { 
+        text: '',
     }
 
     onChange = e => {
@@ -32,7 +33,7 @@ class nav extends Component {
                         placeholder="Search Flix..."
                         onChange={this.onChange}
                         />
-                        <Link>
+                        <Link to={`/search-result/${this.state.text}`}>
                             <button type="submit" value="submit"><FontAwesomeIcon icon={faSearch}/></button>
                         </Link>
                     </form>

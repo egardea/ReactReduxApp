@@ -3,6 +3,7 @@
     overflow: hidden;
     width: 75%;
     margin: auto;
+    padding-bottom: 50px;
 }
 .media-btn-prev, .media-btn-next{
     position: absolute;
@@ -18,12 +19,11 @@
 .media-wrapper{
     display: flex;
     flex-direction: row;
-    padding-bottom: 50px;
+    padding: 25px;
 }
 .media-slide{
     text-decoration: none;
     color: white;
-    padding: 0 50px;
 }
 .media-slide > span{
     position: relative;

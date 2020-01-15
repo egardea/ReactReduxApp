@@ -27,7 +27,7 @@ class Home extends Component {
     
     render() {
         (() => {
-            const slideEl = document.querySelectorAll('.swiper-container');
+            const slideEl = document.querySelectorAll('.media-container');
             if(!slideEl){
                 return;
             }

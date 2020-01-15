@@ -1,13 +1,26 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
-import './SearchResults.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import searchResult from '../../Actions/SearchResult';
 
-class SearchResults extends Component {
+import './SearchResults.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+
+class SearchResults extends Component{
+
+    state = {
+        page: 1
+    }
+
+    componentDidMount() {
+        this.props.searchResult(`https://api.themoviedb.org/3/search/multi?api_key=${this.props.apiKey}&language=en-US&query=${this.props.match.params.id}&page=${this.state.page}&include_adult=false`);
+    }
+
     render(){
         return (
             <div>
@@ -17,70 +30,14 @@ class SearchResults extends Component {
                     
                     <div className="search-wrapper">
     
-                        <a href={"/"} className="search-slide">
+                        <Link to={`/search-result/`} className="search-slide">
                                 <span><FontAwesomeIcon icon={faStar} /></span>
                                     <figure className="search-figure">
                                         <img src={"https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg"} alt={"title"} />
                                     </figure>
                             <h4>Title</h4>
                             <p>Genre</p>
-                        </a>
-                        <a href={"/"} className="search-slide">
-                                <span><FontAwesomeIcon icon={faStar} /></span>
-                                    <figure className="search-figure">
-                                        <img src={"https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg"} alt={"title"} />
-                                    </figure>
-                            <h4>Title</h4>
-                            <p>Genre</p>
-                        </a>
-                        <a href={"/"} className="search-slide">
-                                <span><FontAwesomeIcon icon={faStar} /></span>
-                                    <figure className="search-figure">
-                                        <img src={"https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg"} alt={"title"} />
-                                    </figure>
-                            <h4>Title</h4>
-                            <p>Genre</p>
-                        </a>
-                        <a href={"/"} className="search-slide">
-                                <span><FontAwesomeIcon icon={faStar} /></span>
-                                    <figure className="search-figure">
-                                        <img src={"https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg"} alt={"title"} />
-                                    </figure>
-                            <h4>Title</h4>
-                            <p>Genre</p>
-                        </a>
-                        <a href={"/"} className="search-slide">
-                            <span><FontAwesomeIcon icon={faStar} /></span>
-                                <figure className="search-figure">
-                                    <img src={"https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg"} alt={"title"} />
-                                </figure>
-                            <h4>Title</h4>
-                            <p>Genre</p>
-                        </a>
-                        <a href={"/"} className="search-slide">
-                                <span><FontAwesomeIcon icon={faStar} /></span>
-                                    <figure className="search-figure">
-                                        <img src={"https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg"} alt={"title"} />
-                                    </figure>
-                            <h4>Title</h4>
-                            <p>Genre</p>
-                        </a>
-                        <a href={"/"} className="search-slide">
-                                <span><FontAwesomeIcon icon={faStar} /></span>
-                                    <figure className="search-figure">
-                                        <img src={"https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg"} alt={"title"} />
-                                    </figure>
-                            <h4>Title</h4>
-                            <p>Genre</p>
-                        </a>
-                        <a href={"/"} className="search-slide">
-                                <span><FontAwesomeIcon icon={faStar} /></span>
-                                    <figure className="search-figure">
-                                        <img src={"https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg"} alt={"title"} />
-                                    </figure>
-                            <h4>Title</h4>
-                            <p>Genre</p>
-                        </a>
+                        </Link>
     
                     </div>
     
@@ -90,4 +47,14 @@ class SearchResults extends Component {
         )
     }
 }
-export default SearchResults;
+
+const mapStateToProps = state => ({
+    apiKey: state.apiKeyConfig.apiKey,
+    searchResults: state.searchResult,
+});
+
+const mapDispatchToProps = dispatch => ({
+    searchResult: url => dispatch(searchResult(url)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);
