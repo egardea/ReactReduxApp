@@ -25,7 +25,7 @@ class App extends Component {
     return (
       <Switch>
         <Route path="/search-result/:id" component={SearchResults} />
-        <Route path="/details/:type:id" component={MediaDetails} />
+        <Route path="/details/:type/:id" component={MediaDetails} />
         <Route path="/" component={Home} />
       </Switch>
     );

@@ -1,5 +1,6 @@
 .media-details-container{
     width: 100%;
+    background: #939393;
 }
 /**Header styling */
 header{
@@ -41,9 +42,9 @@ header > figure > img {
 }
 .movie-details-info{
     position: relative;
-    bottom: 200px;
-    left: 50px;
-    display: inline;
+    width: 75%;
+    bottom: 175px;
+    left: 25px;
 }
 .movie-details-info > img {
     height: 150px;
@@ -52,9 +53,9 @@ header > figure > img {
 }
 .movie-details-info > div{
     position: absolute;
-    bottom: 5px;
+    bottom: 0;
     left: 110px;
-    line-height: 1.75;
+    line-height: 2;
 }
 
 /**Main Element styling */
@@ -63,7 +64,7 @@ header > figure > img {
     display: block;
 }
 section{
-    width: 90%;
+    width: 75%;
     margin: auto;
     text-align: center;
     padding: 50px 10px;
@@ -76,16 +77,6 @@ section > h1{
 }
 #summary > p{
     color: white;
-}
-#trailers > div{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    overflow: hidden;
-}
-#trailers > div > iframe{
-    padding: 0 10px;
-    border: none;
 }
 #reviews{
     width: 75%;
@@ -118,6 +109,7 @@ section > h1{
     height: 65px;
     transition: all 250ms;
 }
+/*toggle class button for reviews*/
 .full-height{
     height: 100%;
 }
@@ -133,12 +125,10 @@ section > h1{
 }
 .cast-container{
     position: relative;
+    overflow: hidden;
 }
 .cast-wrapper{
     display: flex;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
 }
 .cast-slide{
     color: white;
@@ -164,10 +154,37 @@ section > h1{
     cursor: pointer;
 }
 .cast-slide-prev{
-    left: -50px;
+    left: 0;
 }
 .cast-slide-next{
-    right: -50px;
+    right: -0;
+}
+/*Trailer Styling*/
+.trailer-container{
+    position: relative;
+    overflow: hidden;
+}
+.trailer-wrapper{
+    display: flex;
+}
+.trailer-slide{
+    border: none;
+    width: 420px;
+    height: 250px;
+}
+.trailer-slide-prev, .trailer-slide-next{
+    position: absolute;
+    bottom: 100px;
+    font-size: 5rem;
+    z-index: 1;
+    color: white;
+    cursor: pointer;
+}
+.trailer-slide-prev{
+    left: 0;
+}
+.trailer-slide-next{
+    right: 0;
 }
 
 /**Media Queries */
@@ -196,5 +213,19 @@ section > h1{
     .movie-details-info > div{
         left: 100px;
         line-height: 1.5;
+    }
+}
+@media only screen and  (max-width: 767px){
+    section{
+        width: 100%;
+    }
+    #reviews{
+        width: 90%;
+    }
+}
+@media only screen and (max-width: 425px) {
+    .trailer-slide{
+        width: 350px;
+        height: 250px;
     }
 }

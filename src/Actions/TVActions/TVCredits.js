@@ -1,4 +1,4 @@
-import { TV_CREDITS } from '../types';
+import { TV_CREDITS } from '../Types';
 import Axios from 'axios';
 
 const saveData = payload  => ({

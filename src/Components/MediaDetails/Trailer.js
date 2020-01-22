@@ -1,13 +1,39 @@
 import React from 'react'
+import Swiper from 'swiper'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 const Trailer = (props) => {
+    const trailer = props.trailer.results;
+    (() => {
+        const swiperEl = document.querySelector('.trailer-container');
+        if(!swiperEl) {
+            return;
+        }
+
+        const slider = new Swiper(swiperEl, {
+            init: true,
+            spaceBetween: 10,
+            observer: true,
+            navigation: {
+                prevEl: '.trailer-slide-prev',
+                nextEl: '.trailer-slide-next'
+            }
+
+        });
+
+    })()
     return (
         <section id="trailers">
             <h1>Trailers</h1>
-            <div>
-                <iframe title="1" width="420" height="250" src={'https://www.youtube.com/embed/t433PEQGErc'}></iframe>
-                <iframe title="1" width="420" height="250" src={'https://www.youtube.com/embed/t433PEQGErc'}></iframe>
-                <iframe title="1" width="420" height="250" src={'https://www.youtube.com/embed/t433PEQGErc'}></iframe>
+            <div className="trailer-container">
+                <FontAwesomeIcon className="trailer-slide-prev" icon={faChevronLeft} />
+                <FontAwesomeIcon className="trailer-slide-next" icon={faChevronRight} />
+                <div className="swiper-wrapper trailer-wrapper">
+                    {trailer ? trailer.map((cur) => (
+                        <iframe key={cur.id} className="swiper-slide trailer-slide" title="1" src={`https://www.youtube.com/embed/${cur.key}`}></iframe>
+                    )) : ''}
+                </div>
             </div>            
         </section>
     )

@@ -6,6 +6,26 @@ import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons
 
 const Cast = (props) => {
 
+    const cast = props.cast;
+    const config = props.config.images;
+    (() => {
+        const swiperEl = document.querySelector('.cast-container');
+        if(!swiperEl) {
+            return;
+        }
+
+        const slider = new Swiper(swiperEl, {
+            init: true,
+            spaceBetween: 30,
+            observer: true,
+            navigation: {
+                prevEl: '.cast-slide-prev',
+                nextEl: '.cast-slide-next'
+            }
+
+        });
+
+    })()
     return (
         <section>
             <h1>Cast</h1>
@@ -13,34 +33,14 @@ const Cast = (props) => {
                     <FontAwesomeIcon className="cast-slide-prev" icon={faChevronLeft} />
                     <FontAwesomeIcon className="cast-slide-next" icon={faChevronRight} />
                     <div className="swiper-wrapper cast-wrapper">
-                        <div className="cast-slide">
-                                    <img src={'https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg'} alt={'Tile'} />
-                                    <h4>Name</h4>
-                        </div>
-                        <div className="cast-slide">
-                                    <img src={'https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg'} alt={'Tile'} />
-                                    <h4>Name</h4>
-                        </div>
-                        <div className="cast-slide">
-                                    <img src={'https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg'} alt={'Tile'} />
-                                    <h4>Name</h4>
-                        </div>
-                        <div className="cast-slide">
-                                    <img src={'https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg'} alt={'Tile'} />
-                                    <h4>Name</h4>
-                        </div>
-                        <div className="cast-slide">
-                                    <img src={'https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg'} alt={'Tile'} />
-                                    <h4>Name</h4>
-                        </div>
-                        <div className="cast-slide">
-                                    <img src={'https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg'} alt={'Tile'} />
-                                    <h4>Name</h4>
-                        </div>
-                        <div className="cast-slide">
-                                    <img src={'https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg'} alt={'Tile'} />
-                                    <h4>Name</h4>
-                        </div>
+                        {
+                            cast ? cast.map((cur, index) => (
+                                <div key={cur.cast_id} className="swiper-slide cast-slide">
+                                    <img src={cast && config ? config.secure_base_url + config.profile_sizes[1] + cur.profile_path : ''} alt={cur.name} />
+                                    <h4>{cur.name}</h4>
+                                </div>
+                            )) : ''
+                        }
                 </div>
             </div>
         </section>

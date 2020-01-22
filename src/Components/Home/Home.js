@@ -49,12 +49,10 @@ class Home extends Component {
         if(this.props.setMediaType === 'MOVIE') {
             movie = 
             <div>
-            <MediaSlider title="Now Playing" slides={this.props.nowPlayingMovies} config={this.props.config}/>
-
-            <MediaSlider title="Popular Movies" slides={this.props.popularMovies} config={this.props.config}/>
-
-            <MediaSlider title="Top Rated Movies" slides={this.props.topRatedMovies} config={this.props.config}/>
-            <MediaSlider title="Upcoming Movies" slides={this.props.upcomingMovies} config={this.props.config}/>
+            <MediaSlider title="Now Playing" slides={this.props.nowPlayingMovies} config={this.props.config} type={this.props.setMediaType} />
+            <MediaSlider title="Popular Movies" slides={this.props.popularMovies} config={this.props.config} type={this.props.setMediaType} />
+            <MediaSlider title="Top Rated Movies" slides={this.props.topRatedMovies} config={this.props.config} type={this.props.setMediaType} />
+            <MediaSlider title="Upcoming Movies" slides={this.props.upcomingMovies} config={this.props.config} type={this.props.setMediaType} />
             </div>
 
         }

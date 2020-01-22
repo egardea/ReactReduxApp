@@ -15,7 +15,7 @@ const MediaSlider = (props) => {
             <h1>{props.title}</h1>
                 <div className="swiper-wrapper media-wrapper">
                     {slides ? slides.map((cur) => (
-                        <Link to={"/"} key={cur.id} className="swiper-slide media-slide">
+                        <Link to={`/details/${props.type.toLowerCase()}/${cur.id}`} key={cur.id} className="swiper-slide media-slide">
                             <span><FontAwesomeIcon icon={faStar} /></span>
                             <figure className="media-figure">
                                 <img src={`${config.images ? config.images.secure_base_url : ''}${config.images ? config.images.poster_sizes[6] : ''}${cur.poster_path}`} alt={cur.title} />
