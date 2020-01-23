@@ -1,4 +1,4 @@
-import { TOP_RATED } from '../types';
+import { TOP_RATED } from '../Types';
 import Axios from 'axios';
 
 const saveData = payload  => ({

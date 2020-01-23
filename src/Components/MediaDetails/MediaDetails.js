@@ -27,12 +27,12 @@ class MediaDetails extends Component {
     }
 
     getMediaData = (id, type) => {
-        if(type === 'movie') {
+        if(type === 'MOVIE') {
             this.props.creditsMovie(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${this.props.apiKey}`);
             this.props.detailsMovie(`https://api.themoviedb.org/3/movie/${id}?api_key=${this.props.apiKey}&language=en-US`);
             this.props.reviewsMovie(`https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${this.props.apiKey}&language=en-US&page=1`);
             this.props.trailersMovie(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${this.props.apiKey}&language=en-US`);
-        } else if(type === 'tv') {
+        } else if(type === 'TV') {
             this.props.creditsTV(`https://api.themoviedb.org/3/tv/${id}/credits?api_key=${this.props.apiKey}&language=en-US`);
             this.props.detailsTV(`https://api.themoviedb.org/3/tv/${id}?api_key=${this.props.apiKey}&language=en-US`);
             this.props.reviewsTV(`https://api.themoviedb.org/3/tv/${id}/reviews?api_key=${this.props.apiKey}&language=en-US&page=1`);
@@ -57,6 +57,7 @@ class MediaDetails extends Component {
                             <h2>{this.props.movieDetails.title}</h2>
                             <p>{this.props.movieDetails.vote_average} Rating</p>
                             <p>{this.props.movieDetails.status}</p>
+                            <p>Budget</p>
                             <p>{this.props.movieDetails.genres ? this.props.movieDetails.genres[0].name : ''}</p>
                         </div>
                         
@@ -68,9 +69,9 @@ class MediaDetails extends Component {
 
                     <Summary summary={this.props.movieDetails.overview} />
 
-                    <Cast cast={this.props.movieCredits.cast} config={this.props.config} />
+                    <Cast cast={this.props.movieCredits.cast} config={this.props.config.images} />
 
-                    <Trailer trailer={this.props.movieTrailers} />
+                    <Trailer trailer={this.props.movieTrailers.results} />
 
                     <Reviews reviews={this.props.movieReviews.results} />
                     

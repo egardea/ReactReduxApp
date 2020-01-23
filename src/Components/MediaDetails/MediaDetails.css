@@ -30,7 +30,7 @@ header > figure::before {
     position: absolute;
     top: 0;
     left: 0;
-    background-image: linear-gradient(to bottom, #333333, #393939, #939393, #c5c5c5, #f9f9f9);
+    background-image: linear-gradient(to top, #333333, #393939, #939393, #c5c5c5, #f9f9f9);
     opacity: .5;
 }
 header > figure > img {
@@ -42,6 +42,7 @@ header > figure > img {
 }
 .movie-details-info{
     position: relative;
+    height: 150px;
     width: 75%;
     bottom: 175px;
     left: 25px;
@@ -54,8 +55,9 @@ header > figure > img {
 .movie-details-info > div{
     position: absolute;
     bottom: 0;
-    left: 110px;
-    line-height: 2;
+    line-height: 1.75rem;
+    height: 150px;
+    left: 120px;
 }
 
 /**Main Element styling */

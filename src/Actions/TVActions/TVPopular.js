@@ -1,4 +1,4 @@
-import {POPULAR_TV} from '../types';
+import {POPULAR_TV} from '../Types';
 import Axios from 'axios';
 
 const saveData = payload  => ({
