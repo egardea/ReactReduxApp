@@ -33,13 +33,13 @@ class SearchResults extends Component{
             <div>
                 <Nav />
                 <div className="search-container">
-                    <h2>Search Results for</h2>
+                    <h2>Search Results for {this.props.match.params.id}</h2>
                     
                     <div className="search-wrapper">
 
                         {this.props.searchResults ? this.props.searchResults.results.map((cur) => 
                         (
-                            <Link key={cur.id} to={`/search-result/${cur.id}`} className="search-slide">
+                            <Link key={cur.id} to={`/details/${cur.media_type}/${cur.id}`} className="search-slide">
     <span><FontAwesomeIcon icon={faStar} /> {cur.vote_average}</span>
                                     <figure className="search-figure">
                                         <img src={`${config.images ? config.images.secure_base_url : ''}${config.images ? config.images.poster_sizes[6] : ''}${cur.poster_path}`} alt={cur.title} />

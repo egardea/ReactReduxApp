@@ -47,7 +47,7 @@ const HomeSlider = (props) => {
                         props.slides.map((cur, i) => {
                             if(i < 10) {
                                 return (
-                                <Link to={"/"} key={cur.id} className="swiper-slide homeslider-slide">
+                                <Link to={`/details/${type.toLowerCase()}/${cur.id}`} key={cur.id} className="swiper-slide homeslider-slide">
                                 <figure className="homeslider-figure">
                                     <img src={config.images ? config.images.secure_base_url + config.images.backdrop_sizes[2] + cur.backdrop_path : ''}  alt={type === 'TV' ? cur.name : cur.title} />
                                 </figure>

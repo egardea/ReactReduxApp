@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 const Trailer = (props) => {
-    const trailer = props.trailer;
+    const trailer = props.trailer.results;
     (() => {
         const swiperEl = document.querySelector('.trailer-container');
         if(!swiperEl) {
@@ -13,7 +13,7 @@ const Trailer = (props) => {
 
         const slider = new Swiper(swiperEl, {
             init: true,
-            spaceBetween: 10,
+            spaceBetween: 30,
             observer: true,
             navigation: {
                 prevEl: '.trailer-slide-prev',
@@ -32,7 +32,7 @@ const Trailer = (props) => {
                 <div className="swiper-wrapper trailer-wrapper">
 
                     {trailer ? trailer.map((cur) => (
-                        <iframe key={cur.id} className="swiper-slide trailer-slide" title="1" src={`https://www.youtube.com/embed/${cur.key}`}></iframe>
+                        <iframe key={cur.id} className="swiper-slide trailer-slide" title="1" length='420' width="250" src={`https://www.youtube.com/embed/${cur.key}`}></iframe>
                     )) : ''}
 
                 </div>

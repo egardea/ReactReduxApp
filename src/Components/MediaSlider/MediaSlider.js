@@ -20,7 +20,7 @@ const MediaSlider = (props) => {
                             <figure className="media-figure">
                                 <img src={`${config.images ? config.images.secure_base_url : ''}${config.images ? config.images.poster_sizes[6] : ''}${cur.poster_path}`} alt={cur.title} />
                             </figure>
-                            <h4>Title</h4>
+                            <h4>{cur.title}</h4>
                             <p>Genre</p>
                         </Link>
                     )) : ''}

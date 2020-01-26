@@ -23,57 +23,138 @@ import trailersTV from '../../Actions/TVActions/TVTrailers';
 class MediaDetails extends Component {
 
     componentDidMount() {
-        this.getMediaData(this.props.match.params.id, this.props.match.params.type);
+        this.getMediaData(this.props.match.params.id);
     }
 
-    getMediaData = (id, type) => {
-        if(type === 'MOVIE') {
+    getMediaData = (id, type = this.props.match.params.type) => {
+        if(type === 'movie') {
             this.props.creditsMovie(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${this.props.apiKey}`);
             this.props.detailsMovie(`https://api.themoviedb.org/3/movie/${id}?api_key=${this.props.apiKey}&language=en-US`);
             this.props.reviewsMovie(`https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${this.props.apiKey}&language=en-US&page=1`);
             this.props.trailersMovie(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${this.props.apiKey}&language=en-US`);
-        } else if(type === 'TV') {
+        } else if(type === 'tv') {
             this.props.creditsTV(`https://api.themoviedb.org/3/tv/${id}/credits?api_key=${this.props.apiKey}&language=en-US`);
             this.props.detailsTV(`https://api.themoviedb.org/3/tv/${id}?api_key=${this.props.apiKey}&language=en-US`);
             this.props.reviewsTV(`https://api.themoviedb.org/3/tv/${id}/reviews?api_key=${this.props.apiKey}&language=en-US&page=1`);
             this.props.trailersTV(`https://api.themoviedb.org/3/tv/${id}/videos?api_key=${this.props.apiKey}&language=en-US`);
         }
     }
+
+    config = this.props.config.images;
+
+    header = type => {
+        switch(type) {
+            case 'movie':
+            return (
+            <header>
+                <span><FontAwesomeIcon icon={faCaretLeft} /></span>
+                <figure>
+                    <img src={this.config && this.props.movieDetails.backdrop_path ? this.config.secure_base_url + this.config.backdrop_sizes[2] + this.props.movieDetails.backdrop_path : ''} alt={this.props.movieDetails.title} />
+                </figure>
+
+                <div className="movie-details-info">
+                    <img src={this.config && this.props.movieDetails.poster_path ? this.config.secure_base_url + this.config.poster_sizes[3] + this.props.movieDetails.poster_path : ''} alt={this.props.movieDetails.title} />
+                    <div>
+                        <h2>{this.props.movieDetails.title}</h2>
+                        <p>{this.props.movieDetails.vote_average} Rating</p>
+                        <p>{this.props.movieDetails.status}</p>
+                        <p>{this.props.movieDetails.budget}</p>
+                        <p>{this.props.movieDetails.genres ? this.props.movieDetails.genres[0].name : ''}</p>
+                    </div>
+                </div>
+            </header>
+            );
+            case 'tv' :
+            return (
+            <header>
+                <span><FontAwesomeIcon icon={faCaretLeft} /></span>
+                <figure>
+                    <img src={this.config && this.props.tvDetails.backdrop_path ? this.config.secure_base_url + this.config.backdrop_sizes[2] + this.props.tvDetails.backdrop_path : ''} alt={this.props.tvDetails.name} />
+                </figure>
+
+                <div className="movie-details-info">
+                    <img src={this.config && this.props.tvDetails.poster_path ? this.config.secure_base_url + this.config.poster_sizes[3] + this.props.tvDetails.poster_path : ''} alt={this.props.tvDetails.title} />
+                    <div>
+                        <h2>{this.props.tvDetails.name}</h2>
+                        <p>{this.props.tvDetails.vote_average} Rating</p>
+                        <p>{this.props.tvDetails.status}</p>
+                        <p>{this.props.movieDetails.budget}</p>
+                        <p>{this.props.tvDetails.genres ? this.props.tvDetails.genres[0].name : ''}</p>
+                    </div>
+                </div>
+            </header>
+            );
+            default:
+                return null;
+            }
+    }
+    summary = type => {
+        switch(type){
+            case 'movie':
+                return (
+                    <Summary summary={this.props.movieDetails.overview} />
+                )
+            case 'tv':
+                return (
+                    <Summary summary={this.props.tvDetails.overview} />
+                )
+            default:
+                return null;
+        }
+    }
+    cast = type => {
+        switch(type) {
+            case 'movie':
+                return(
+                    <Cast cast={this.props.movieCredits.cast} config={this.props.config.images} />
+                )
+            case 'tv':
+                return (
+                    <Cast cast={this.props.tvCredits.cast} config={this.props.config.images} />
+                )
+            default:
+                return null;
+        }
+    }
+    trailers = type => {
+        switch(type) {
+            case 'movie':
+                return (
+                    <Trailer trailer={this.props.movieTrailers} />
+                )
+            case 'tv':
+                return (
+                    <Trailer trailer={this.props.tvTrailers} />
+                )
+            default:
+                return null;
+        }
+    }
+    reviews = type => {
+        switch(type) {
+            case 'movie':
+                return (
+                    <Reviews reviews={this.props.movieReviews.results}/>
+                )
+            case 'tv':
+                return (
+                    <Reviews reviews={this.props.tvReviews.results} />
+                )
+            default:
+                return null;
+        }
+    }
     
     render(){
-        const config = this.props.config.images;
         return (
             <div className="media-details-container">
-
-                <header>
-                    <span><FontAwesomeIcon icon={faCaretLeft} /></span>
-                    <figure>
-                        <img src={config && this.props.movieDetails.backdrop_path ? config.secure_base_url + config.backdrop_sizes[2] + this.props.movieDetails.backdrop_path : ''} alt={this.props.movieDetails.title} />
-                    </figure>
-
-                    <div className="movie-details-info">
-                        <img src={config && this.props.movieDetails.backdrop_path ? config.secure_base_url + config.poster_sizes[3] + this.props.movieDetails.poster_path : ''} alt={this.props.movieDetails.title} />
-                        <div>
-                            <h2>{this.props.movieDetails.title}</h2>
-                            <p>{this.props.movieDetails.vote_average} Rating</p>
-                            <p>{this.props.movieDetails.status}</p>
-                            <p>Budget</p>
-                            <p>{this.props.movieDetails.genres ? this.props.movieDetails.genres[0].name : ''}</p>
-                        </div>
-                        
-                    </div>
-
-                </header>
-
+                {this.header(this.props.match.params.type)}
                 <main className="movie-details-main">
 
-                    <Summary summary={this.props.movieDetails.overview} />
-
-                    <Cast cast={this.props.movieCredits.cast} config={this.props.config.images} />
-
-                    <Trailer trailer={this.props.movieTrailers.results} />
-
-                    <Reviews reviews={this.props.movieReviews.results} />
+                    {this.summary(this.props.match.params.type)}
+                    {this.cast(this.props.match.params.type)}
+                    {this.trailers(this.props.match.params.type)}
+                    {this.reviews(this.props.match.params.type)}
                     
                 </main>
                 

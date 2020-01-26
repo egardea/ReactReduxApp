@@ -8,7 +8,7 @@ const saveData = payload  => ({
 
 const tvDetails = url => dispatch => {
     Axios.get(url)
-    .then(response => dispatch(saveData(response.data.results)))
+    .then(response => dispatch(saveData(response.data)))
     .catch(error => console.log(error));
 };
 

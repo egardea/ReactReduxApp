@@ -55,7 +55,7 @@ class Home extends Component {
             const slider = new Swiper(slideEl, {
                 init: true,
                 slidesPerView: 'auto',
-                spaceBetween: 0,
+                spaceBetween: 50,
                 observer: true,
                 loop: true,
                 preventInteractionOnTransition: true,
@@ -88,7 +88,7 @@ class Home extends Component {
         return (
             <div>
                 <Nav />
-                <HomeSlider slides={this.props.trendingMovies} config={this.props.config} genreList={this.props.itemType === 'TV' ? this.props.tvGenre : this.props.movieGenre} itemType={this.props.itemType} />
+                <HomeSlider slides={this.props.itemType === 'TV' ? this.props.trendingTV : this.props.trendingMovies} config={this.props.config} genreList={this.props.itemType === 'TV' ? this.props.tvGenre : this.props.movieGenre} itemType={this.props.itemType} />
                 <div id="media-main">
                     <div className="btn-container">
                         <button onClick={() => {this.props.setMediaType('MOVIES'); this.getMovieData();}}>Movies</button>

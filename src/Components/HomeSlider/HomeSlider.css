@@ -49,10 +49,12 @@
     position: absolute;
     top: 25px;
     left: 25px;
-    line-height: 1.15;
 }
 .homeslider-info > p {
     text-transform: uppercase;
+}
+.homeslider-info > h2{
+    font-size: 30px;
 }
 @media only screen and  (max-width: 1023px){
     .homeslider-wrapper{
