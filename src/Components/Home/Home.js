@@ -55,13 +55,23 @@ class Home extends Component {
             const slider = new Swiper(slideEl, {
                 init: true,
                 slidesPerView: 'auto',
-                spaceBetween: 50,
                 observer: true,
                 loop: true,
                 preventInteractionOnTransition: true,
                 navigation: {
                     prevEl: '.media-btn-prev',
                     nextEl: '.media-btn-next',
+                },
+                breakpoints: {
+                    100: {
+                        spaceBetween: 1
+                    },
+                    767: {
+                        spaceBetween: 15
+                    },
+                    1024: {
+                        spaceBetween: 50,
+                    },
                 }
             });
         })();

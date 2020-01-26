@@ -134,11 +134,11 @@ class MediaDetails extends Component {
         switch(type) {
             case 'movie':
                 return (
-                    <Reviews reviews={this.props.movieReviews.results}/>
+                    <Reviews reviews={this.props.movieReviews}/>
                 )
             case 'tv':
                 return (
-                    <Reviews reviews={this.props.tvReviews.results} />
+                    <Reviews reviews={this.props.tvReviews} />
                 )
             default:
                 return null;
