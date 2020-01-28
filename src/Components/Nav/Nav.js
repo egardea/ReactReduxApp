@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import './Nav.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faSearch, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 class nav extends Component {
 
@@ -40,7 +40,14 @@ class nav extends Component {
                 </div>
                 <div className="nav-home">
                     <span>
+                        <Link to={'/profile'}>
+                        <FontAwesomeIcon icon={faUserCircle} />
+                        </Link>
+                    </span>
+                    <span>
+                        <Link to={`/`}>
                         <FontAwesomeIcon icon={faHome} />
+                        </Link>
                     </span>
                 </div>
             </nav>

@@ -31,9 +31,14 @@
     cursor: pointer;
 }
 .nav-home{
-    color: white;
     font-size: 2rem;
     margin-right: 5px;
     display: flex;
     justify-content: flex-end;
+}
+.nav-home span > a{
+    color: white;
+}
+.nav-home > span:last-child {
+    margin-left: 10px;
 }
