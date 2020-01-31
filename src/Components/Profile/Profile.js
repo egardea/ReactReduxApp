@@ -19,6 +19,7 @@ class Profile extends Component {
             });
         }
     }
+
     render() {
         return (
             <div id="profile-container">
@@ -27,7 +28,7 @@ class Profile extends Component {
                         <figure>
                             <img src={'https://png2.cleanpng.com/sh/2766aa268cfa95394a6057258759ef78/L0KzQYm3VcIyN5R6R91yc4Pzfri0gB9ueKZ5feQ2aXPyfsS0lgNmel51itHvaXzoPbL9ggRiel5ritd3Y3iwgLb2kPxmNWZnSKUBNXW4QrftWPM3Nmg2TKg7MEe2QYa5Vsk1QWQ5UaMENkWxgLBu/kisspng-computer-icons-user-profile-avatar-french-people-5b0365e52ff8c6.7146207315269493491965.png'} alt={''} /> 
                         </figure>
-                        <p>Guest</p>
+                        <p>Welcome Guest</p>
                         <a href={'/'}>Log Out</a>
                     </div>
                     <div className="toggle-btn-container" onClick={this.toggleMediaBtn}>

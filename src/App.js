@@ -7,6 +7,7 @@ import Home from './Components/Home/Home';
 import SearchResults from './Components/SearchResults/SearchResults';
 import MediaDetails from './Components/MediaDetails/MediaDetails';
 import Profile from './Components/Profile/Profile';
+import Login from './Components/Profile/Login';
 
 import apiKeyConfig from './Actions/ApiKeyConfig';
 import searchTrending from './Actions/MovieActions/Trending';
@@ -27,7 +28,7 @@ class App extends Component {
       <Switch>
         <Route path="/search-result/:id" component={SearchResults} />
         <Route path="/details/:type/:id" component={MediaDetails} />
-        <Route path="/" component={Profile} />
+        <Route path="/" component={Login} />
       </Switch>
     );
   }
