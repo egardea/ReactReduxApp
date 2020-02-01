@@ -3,7 +3,6 @@
     overflow: hidden;
     width: 75%;
     margin: auto;
-    padding-bottom: 50px;
 }
 .media-btn-prev, .media-btn-next{
     position: absolute;

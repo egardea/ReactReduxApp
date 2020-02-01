@@ -28,7 +28,9 @@ class App extends Component {
       <Switch>
         <Route path="/search-result/:id" component={SearchResults} />
         <Route path="/details/:type/:id" component={MediaDetails} />
-        <Route path="/" component={Login} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/login" component={Login} />
+        <Route path="/" component={Home} />
       </Switch>
     );
   }
