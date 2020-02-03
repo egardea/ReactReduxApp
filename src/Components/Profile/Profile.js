@@ -6,10 +6,40 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 class Profile extends Component {
-
+    state = {
+        favMovies: [],
+        favTV: [],
+        ratedMovies: [],
+        ratedTV: [],
+        currentMedia: 'Favorite Movies'
+    }
+    componentDidMount(){
+        this.getStorage();
+        console.log(this.state.favMovies);
+    }
+    getStorage = () => {
+        const item = Object.entries({...localStorage});
+        let toArr = JSON.parse(JSON.stringify(item));
+        let arr = [];
+        toArr.forEach((cur, i) => {
+            arr.push([cur[0].split('-')[0], JSON.parse(cur[1])]);
+        });
+        arr.forEach((cur, i) => {
+            if(cur[0] === 'favMovie') {
+                this.state.favMovies.push(cur[1]);
+            } else if(cur[0] === 'favTV') {
+                this.state.favTV.push(cur[1]);
+            } else if(cur[0] === 'ratedMovie') {
+                this.state.ratedMovies.push(cur[1]);
+            } else if(cur[0] === 'ratedTV') {
+                this.state.ratedTV.push(cur[1]);
+            }
+        });
+    }
     toggleMediaBtn = (e) => {
         const mediaButtons = document.querySelectorAll('.profile-btn');
         const element = e.target.innerText;
+        this.setState({currentMedia: e.target.innerText}, () => {console.log(this.state.currentMedia)});
         if(e.target.tagName === 'BUTTON') {
             mediaButtons.forEach((cur, i) => {
                 cur = cur.className === 'profile-btn active-btn' ? cur.classList.remove('active-btn') : '';
@@ -20,6 +50,23 @@ class Profile extends Component {
         }
     }
 
+    renderMedia = type => {
+        let media;
+        if(type === 'Favorite Movies') {
+            media = this.state.favMovies > 0 ? this.state.favMovies.map((cur) => (
+                <Link to={`/details/${''}/${''}`} key={''} className="profile-slide">
+                <span><FontAwesomeIcon icon={faStar} /> 2.3</span>
+                <figure className="profile-figure">
+                <img src={`https://images-na.ssl-images-amazon.com/images/I/A1t8xCe9jwL._SY879_.jpg`} alt={''} />
+                </figure>
+                <div>
+                    <h4>Movie title Here ot goes to something for toadayt</h4>
+                    <p>erik</p>
+                </div>
+            </Link>
+            )): '';
+        }
+    }
     render() {
         return (
             <div id="profile-container">
@@ -32,26 +79,17 @@ class Profile extends Component {
                         <a href={'/'}>Log Out</a>
                     </div>
                     <div className="toggle-btn-container" onClick={this.toggleMediaBtn}>
-                        <button className='profile-btn active-btn'>Favorite Movies</button>
-                        <button className='profile-btn'>Favorite TV</button>
-                        <button className='profile-btn'>Rated Movies</button>
-                        <button className='profile-btn'>Rated TV</button>
+                        <button className='profile-btn active-btn' name="favMovies">Favorite Movies</button>
+                        <button className='profile-btn' name="favTV">Favorite TV</button>
+                        <button className='profile-btn' name="ratedMovies">Rated Movies</button>
+                        <button className='profile-btn' name="ratedTV">Rated TV</button>
                     </div>
                 </section>
                 <section className="profile-media-container">
-                    <h1>Favorite Movies</h1>
+                    <h1>{this.state.currentMedia}</h1>
                     <div className="profile-media-wrapper">
 
-                        <Link to={`/details/${''}/${''}`} key={''} className="profile-slide">
-                            <span><FontAwesomeIcon icon={faStar} /> 2.3</span>
-                            <figure className="profile-figure">
-                                <img src={`https://images-na.ssl-images-amazon.com/images/I/A1t8xCe9jwL._SY879_.jpg`} alt={''} />
-                            </figure>
-                            <div>
-                                <h4>Movie title Here ot goes to something for toadayt</h4>
-                                <p>Genre</p>
-                            </div>
-                        </Link>
+                        {this.renderMedia(this.state.currentMedia)}
                         
                     </div>
                     

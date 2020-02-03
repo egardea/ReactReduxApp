@@ -15,9 +15,8 @@ const Cast = (props) => {
         }
 
         const slider = new Swiper(swiperEl, {
-            init: true,
-            spaceBetween: 30,
-            observer: true,
+            spaceBetween: 45,
+            watchOverflow: true,
             navigation: {
                 prevEl: '.cast-slide-prev',
                 nextEl: '.cast-slide-next'

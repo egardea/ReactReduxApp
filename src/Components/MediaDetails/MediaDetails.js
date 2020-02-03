@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
-import Swiper from 'swiper';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretLeft } from '@fortawesome/free-solid-svg-icons';
+import { faCaretLeft, faHeart, faStar } from '@fortawesome/free-solid-svg-icons';
 
 import './MediaDetails.css';
 import Trailer from './Trailer';
@@ -26,6 +26,48 @@ class MediaDetails extends Component {
         this.getMediaData(this.props.match.params.id);
     }
 
+    sendFavToStorage = () => {
+        let type = this.props.match.params.type;
+        if(type === 'movie') {
+            try {
+                let favId = JSON.stringify(this.props.movieDetails.id);
+                let newItem = JSON.stringify([this.props.movieDetails.id, this.props.movieDetails.title, this.props.movieDetails.genres, this.props.movieDetails.poster_path])
+                localStorage.setItem(`favMovie-${favId}`, newItem);
+            } catch (err) {
+                console.log(err);
+            }
+        } else if(type === 'tv') {
+            try {
+                let favId = JSON.stringify(this.props.tvDetails.id);
+                let newItem = JSON.stringify([this.props.tvDetails.id, this.props.tvDetails.title, this.props.tvDetails.genres, this.props.tvDetails.poster_path])
+                localStorage.setItem(`favTV-${favId}`, newItem);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    }
+    sendRatedToStorage = () => {
+        let type = this.props.match.params.type;
+        if(type === 'movie') {
+            try {
+                let ratedId = JSON.stringify(this.props.movieDetails.id);
+                let newItem = JSON.stringify([this.props.movieDetails.id, this.props.movieDetails.title, this.props.movieDetails.genres, this.props.movieDetails.poster_path])
+                localStorage.setItem(`ratedMovie-${ratedId}`, newItem);
+            } catch (err) {
+                console.log(err);
+            }
+        } else if(type === 'tv') {
+            try {
+                let ratedId = JSON.stringify(this.props.tvDetails.id);
+                let newItem = JSON.stringify([this.props.tvDetails.id, this.props.tvDetails.title, this.props.tvDetails.genres, this.props.tvDetails.poster_path])
+                localStorage.setItem(`ratedTV-${ratedId}`, newItem);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        
+    }
+    
     getMediaData = (id, type = this.props.match.params.type) => {
         if(type === 'movie') {
             this.props.creditsMovie(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${this.props.apiKey}`);
@@ -51,12 +93,11 @@ class MediaDetails extends Component {
                 <figure>
                     <img src={this.config && this.props.movieDetails.backdrop_path ? this.config.secure_base_url + this.config.backdrop_sizes[2] + this.props.movieDetails.backdrop_path : ''} alt={this.props.movieDetails.title} />
                 </figure>
-
                 <div className="movie-details-info">
                     <img src={this.config && this.props.movieDetails.poster_path ? this.config.secure_base_url + this.config.poster_sizes[3] + this.props.movieDetails.poster_path : ''} alt={this.props.movieDetails.title} />
                     <div>
                         <h2>{this.props.movieDetails.title}</h2>
-                        <p>{this.props.movieDetails.vote_average} Rating</p>
+                        <p><span onClick={this.sendRatedToStorage}>{this.props.movieDetails.vote_average}</span> | <span className="favorite-media" onClick={this.sendFavToStorage}><FontAwesomeIcon icon={faHeart} /></span></p>
                         <p>{this.props.movieDetails.status}</p>
                         <p>{this.props.movieDetails.budget}</p>
                         <p>{this.props.movieDetails.genres ? this.props.movieDetails.genres[0].name : ''}</p>

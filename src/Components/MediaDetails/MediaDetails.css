@@ -52,6 +52,14 @@ header > figure > img {
     width: auto;
     border-radius: 5px;
 }
+.favorite-media{
+    color: #ffffff;
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    transition: all 250ms ease-in-out;
+    cursor: pointer;
+}
 .movie-details-info > div{
     position: absolute;
     bottom: 0;
@@ -135,6 +143,8 @@ section > h1{
 }
 .cast-slide{
     color: white;
+    width: 135px !important;
+    height: auto;
 }
 .cast-slide > img{
     height: 200px;
@@ -150,7 +160,7 @@ section > h1{
 }
 .cast-slide-prev, .cast-slide-next{
     position: absolute;
-    bottom: 100px;
+    bottom: 135px;
     font-size: 5rem;
     z-index: 1;
     color: white;
