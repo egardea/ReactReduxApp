@@ -70,7 +70,8 @@
 .active-btn{
     width: 240px;
     border-radius: 5px 0 0 5px;
-    background-color: firebrick;
+    background: #b4b4b4b4;
+    color:#333;
 }
 /**Right Media styles*/
 .profile-media-container{

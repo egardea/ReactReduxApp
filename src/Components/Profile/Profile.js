@@ -1,21 +1,25 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './Profile.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 class Profile extends Component {
-    state = {
-        favMovies: [],
-        favTV: [],
-        ratedMovies: [],
-        ratedTV: [],
-        currentMedia: 'Favorite Movies'
+    constructor(props) {
+        super(props);
+        this.state = {
+            favMovies: [],
+            favTV: [],
+            ratedMovies: [],
+            ratedTV: [],
+            currentMedia: 'Favorite Movies'
+        }
     }
-    componentDidMount(){
+    componentWillMount(){
         this.getStorage();
-        console.log(this.state.favMovies);
+        this.renderMedia(this.state.currentMedia);
     }
     getStorage = () => {
         const item = Object.entries({...localStorage});
@@ -39,8 +43,8 @@ class Profile extends Component {
     toggleMediaBtn = (e) => {
         const mediaButtons = document.querySelectorAll('.profile-btn');
         const element = e.target.innerText;
-        this.setState({currentMedia: e.target.innerText}, () => {console.log(this.state.currentMedia)});
         if(e.target.tagName === 'BUTTON') {
+            this.setState({currentMedia: e.target.innerText}, () => {console.log(this.state.currentMedia)});
             mediaButtons.forEach((cur, i) => {
                 cur = cur.className === 'profile-btn active-btn' ? cur.classList.remove('active-btn') : '';
             });
@@ -51,22 +55,64 @@ class Profile extends Component {
     }
 
     renderMedia = type => {
+        const config = this.props.config;
         let media;
         if(type === 'Favorite Movies') {
-            media = this.state.favMovies > 0 ? this.state.favMovies.map((cur) => (
-                <Link to={`/details/${''}/${''}`} key={''} className="profile-slide">
+            media = this.state.favMovies.length > 0? this.state.favMovies.map((cur) => (
+                <Link to={`/details/movie/${cur[0]}`} key={cur[0]} className="profile-slide">
                 <span><FontAwesomeIcon icon={faStar} /> 2.3</span>
                 <figure className="profile-figure">
-                <img src={`https://images-na.ssl-images-amazon.com/images/I/A1t8xCe9jwL._SY879_.jpg`} alt={''} />
+                <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur[3] : ''} alt={cur[1]} />
                 </figure>
                 <div>
-                    <h4>Movie title Here ot goes to something for toadayt</h4>
-                    <p>erik</p>
+                    <h4>{cur[1]}</h4>
+                    <p>{cur[2][0].name}</p>
                 </div>
             </Link>
-            )): '';
+            )): 'Please Favorite Movies To See';
+        } else if(type === 'Rated Movies') {
+            media = this.state.ratedMovies.length > 0 ? this.state.ratedMovies.map((cur) => (
+                <Link to={`/details/movie/${cur[0]}`} key={cur[0]} className="profile-slide">
+                <span><FontAwesomeIcon icon={faStar} /> 2.3</span>
+                <figure className="profile-figure">
+                <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur[3] : ''} alt={cur[1]} />
+                </figure>
+                <div>
+                    <h4>{cur[1]}</h4>
+                    <p>{cur[2][0].name}</p>
+                </div>
+            </Link>
+            )): 'Please Rate Movies To See';
+        } else if(type === 'Favorite TV') {
+            media = this.state.favTV.length > 0 ? this.state.favTV.map((cur) => (
+                <Link to={`/details/tv/${cur[0]}`} key={cur[0]} className="profile-slide">
+                <span><FontAwesomeIcon icon={faStar} /> 2.3</span>
+                <figure className="profile-figure">
+                <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur[3] : ''} alt={cur[1]} />
+                </figure>
+                <div>
+                    <h4>{cur[1]}</h4>
+                    <p>{cur[2][0].name}</p>
+                </div>
+            </Link>
+            )): 'Please Favorite TV To See';
+        } else if(type === 'Rated TV') {
+            media = this.state.ratedTV.length > 0 ? this.state.ratedTV.map((cur) => (
+                <Link to={`/details/tv/${cur[0]}`} key={cur[0]} className="profile-slide">
+                <span><FontAwesomeIcon icon={faStar} /> 2.3</span>
+                <figure className="profile-figure">
+                <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur[3] : ''} alt={cur[1]} />
+                </figure>
+                <div>
+                    <h4>{cur[1]}</h4>
+                    <p>{cur[2][0].name}</p>
+                </div>
+            </Link>
+            )): 'Please Favorite TV To See';
         }
+        return media;
     }
+
     render() {
         return (
             <div id="profile-container">
@@ -102,4 +148,9 @@ class Profile extends Component {
         )
     }
 }
-export default Profile;
+
+const mapStateToProps = state => ({
+    config: state.apiKeyConfig.images
+});
+
+export default connect(mapStateToProps)(Profile);

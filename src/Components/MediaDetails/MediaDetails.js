@@ -59,7 +59,7 @@ class MediaDetails extends Component {
         } else if(type === 'tv') {
             try {
                 let ratedId = JSON.stringify(this.props.tvDetails.id);
-                let newItem = JSON.stringify([this.props.tvDetails.id, this.props.tvDetails.title, this.props.tvDetails.genres, this.props.tvDetails.poster_path])
+                let newItem = JSON.stringify([this.props.tvDetails.id, this.props.tvDetails.original_name, this.props.tvDetails.genres, this.props.tvDetails.poster_path])
                 localStorage.setItem(`ratedTV-${ratedId}`, newItem);
             } catch (err) {
                 console.log(err);
@@ -117,7 +117,7 @@ class MediaDetails extends Component {
                     <img src={this.config && this.props.tvDetails.poster_path ? this.config.secure_base_url + this.config.poster_sizes[3] + this.props.tvDetails.poster_path : ''} alt={this.props.tvDetails.title} />
                     <div>
                         <h2>{this.props.tvDetails.name}</h2>
-                        <p>{this.props.tvDetails.vote_average} Rating</p>
+                        <p><span onClick={this.sendRatedToStorage}>{this.props.tvDetails.vote_average}</span> | <span className="favorite-media" onClick={this.sendFavToStorage}><FontAwesomeIcon icon={faHeart} /></span></p>
                         <p>{this.props.tvDetails.status}</p>
                         <p>{this.props.movieDetails.budget}</p>
                         <p>{this.props.tvDetails.genres ? this.props.tvDetails.genres[0].name : ''}</p>
