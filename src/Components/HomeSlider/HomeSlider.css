@@ -58,6 +58,20 @@
 }
 @media only screen and  (max-width: 1325px){
     .homeslider-wrapper{
+        height: 60vh;
+    }
+    .homeslider-figure{
+        height: 60vh;
+    }
+    .homeslider-figure::before{
+        height: 60vh;
+    }
+    .homeslider-figure > img{
+        height: 60vh;
+    }
+}
+@media only screen and  (max-width: 1325px){
+    .homeslider-wrapper{
         height: 40vh;
     }
     .homeslider-figure{
