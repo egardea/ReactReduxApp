@@ -202,7 +202,7 @@ section > h1{
 }
 
 /**Media Queries */
-@media only screen and  (max-width: 1023px){
+@media only screen and  (max-width: 1325px){
     header{
         height: 40vh;
     }
