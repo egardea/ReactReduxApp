@@ -204,6 +204,33 @@ section > h1{
 /**Media Queries */
 @media only screen and  (max-width: 1325px){
     header{
+        height: 60vh;
+    }
+    header > figure {
+        height: 60vh;
+    }
+    header > figure::before {
+        height: 60vh;
+    }
+    header > figure > img {
+        height: 60vh;
+    }
+    .movie-details-info{
+        bottom: 135px;
+        left: 10px;
+    }
+    .movie-details-info > img {
+        height: 125px;
+        width: auto;
+        border-radius: 5px;
+    }
+    .movie-details-info > div{
+        left: 100px;
+        line-height: 1.5;
+    }
+}
+@media only screen and  (max-width: 867px){
+    header{
         height: 40vh;
     }
     header > figure {
