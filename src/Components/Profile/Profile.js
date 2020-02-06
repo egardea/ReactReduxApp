@@ -15,11 +15,6 @@ const Profile = () => {
     const [currentMedia, setCurrentMedia] = useState('Favorite Movies');
 
     const config = useSelector(state => state.apiKeyConfig.images);
-    console.log(favMovies);
-    console.log(favTV);
-    console.log(ratedMovies);
-    console.log(ratedTV);
-    console.log(currentMedia);
     /*constructor(props) {
         super(props);
         this.state = {
@@ -30,35 +25,10 @@ const Profile = () => {
             currentMedia: 'Favorite Movies'
         }
     }*/
-    useLayoutEffect(() => {
-        getStorage();
-        return () => {
-            getStorage();
-        }
-    },[config])
     /*componentWillMount() {
         this.getStorage();
         this.renderMedia(this.state.currentMedia);
     };*/
-    const getStorage = () => {
-        const item = Object.entries({...localStorage});
-        let toArr = JSON.parse(JSON.stringify(item));
-        let arr = [];
-        toArr.forEach((cur, i) => {
-            arr.push([cur[0].split('-')[0], JSON.parse(cur[1])]);
-        });
-        arr.forEach((cur, i) => {
-            if(cur[0] === 'favMovie') {
-                setFavMovies(state => [...state, cur[1]]);
-            } else if(cur[0] === 'favTV') {
-                setFavTV(state => [...state, cur[1]]);
-            } else if(cur[0] === 'ratedMovie') {
-                setRatedMovies(state => [...state, cur[1]]);
-            } else if(cur[0] === 'ratedTV') {
-                setRatedTV(state => [...state, cur[1]]);
-            }
-        });
-    }
     const toggleMediaBtn = (e) => {
         const mediaButtons = document.querySelectorAll('.profile-btn');
         const element = e.target.innerText;

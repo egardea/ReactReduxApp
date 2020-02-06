@@ -13,6 +13,7 @@ import nowPlayingMovies from './MovieReducers/NowPlayingMovies';
 import popularMovies from './MovieReducers/PopularMovies';
 import topRatedMovies from './MovieReducers/TopRatedMovies';
 import upcomingMovies from './MovieReducers/UpComingMovies';
+import movieFavorite from './MovieReducers/MovieFavorite';
 
 import trendingTV from './TVReducers/Trending';
 import tvCredits from './TVReducers/TVCredits';
@@ -49,4 +50,5 @@ export default combineReducers({
     tvonAir,
     popularTV,
     topRated,
+    movieFavorite,
 });

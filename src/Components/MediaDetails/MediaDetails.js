@@ -14,6 +14,7 @@ import creditsMovie from '../../Actions/MovieActions/MovieCredits';
 import detailsMovie from '../../Actions/MovieActions/MovieDetails';
 import reviewsMovie from '../../Actions/MovieActions/MovieReviews';
 import trailersMovie from '../../Actions/MovieActions/MovieTrailers';
+import favoriteMovie from '../../Actions/MovieActions/MovieFavorite';
 
 import creditsTV from '../../Actions/TVActions/TVCredits';
 import detailsTV from '../../Actions/TVActions/TVDetails';
@@ -29,41 +30,19 @@ class MediaDetails extends Component {
     sendFavToStorage = () => {
         let type = this.props.match.params.type;
         if(type === 'movie') {
-            try {
-                let favId = JSON.stringify(this.props.movieDetails.id);
-                let newItem = JSON.stringify([this.props.movieDetails.id, this.props.movieDetails.title, this.props.movieDetails.genres, this.props.movieDetails.poster_path])
-                localStorage.setItem(`favMovie-${favId}`, newItem);
-            } catch (err) {
-                console.log(err);
-            }
+            this.props.favoriteMovie({
+                id: this.props.movieDetails.id, title: this.props.movieDetails.title, genres: this.props.movieDetails.genres, img:  this.props.movieDetails.poster_path
+            })
         } else if(type === 'tv') {
-            try {
-                let favId = JSON.stringify(this.props.tvDetails.id);
-                let newItem = JSON.stringify([this.props.tvDetails.id, this.props.tvDetails.title, this.props.tvDetails.genres, this.props.tvDetails.poster_path])
-                localStorage.setItem(`favTV-${favId}`, newItem);
-            } catch (err) {
-                console.log(err);
-            }
+
         }
     }
     sendRatedToStorage = () => {
         let type = this.props.match.params.type;
         if(type === 'movie') {
-            try {
-                let ratedId = JSON.stringify(this.props.movieDetails.id);
-                let newItem = JSON.stringify([this.props.movieDetails.id, this.props.movieDetails.title, this.props.movieDetails.genres, this.props.movieDetails.poster_path])
-                localStorage.setItem(`ratedMovie-${ratedId}`, newItem);
-            } catch (err) {
-                console.log(err);
-            }
+
         } else if(type === 'tv') {
-            try {
-                let ratedId = JSON.stringify(this.props.tvDetails.id);
-                let newItem = JSON.stringify([this.props.tvDetails.id, this.props.tvDetails.original_name, this.props.tvDetails.genres, this.props.tvDetails.poster_path])
-                localStorage.setItem(`ratedTV-${ratedId}`, newItem);
-            } catch (err) {
-                console.log(err);
-            }
+
         }
         
     }
@@ -225,6 +204,7 @@ const mapDispatchToProps = dispatch => ({
     creditsMovie: url => dispatch(creditsMovie(url)),
     reviewsMovie: url => dispatch(reviewsMovie(url)),
     trailersMovie: url => dispatch(trailersMovie(url)),
+    favoriteMovie: movie => dispatch(favoriteMovie(movie)),
 
     creditsTV: url => dispatch(creditsTV(url)),
     detailsTV: url => dispatch(detailsTV(url)),
