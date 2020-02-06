@@ -15,6 +15,7 @@ const Profile = () => {
     const [currentMedia, setCurrentMedia] = useState('Favorite Movies');
 
     const config = useSelector(state => state.apiKeyConfig.images);
+    const favoriteMovies = useSelector(state => state.movieFavorite.favMovies);
     /*constructor(props) {
         super(props);
         this.state = {
@@ -46,15 +47,15 @@ const Profile = () => {
     const renderMedia = type => {
         let media;
         if(type === 'Favorite Movies') {
-            media = favMovies.length > 0? favMovies.map((cur) => (
-                <Link to={`/details/movie/${cur[0]}`} key={cur[0]} className="profile-slide">
+            media = favoriteMovies.length > 0 ? favoriteMovies.map((cur) => (
+                <Link to={`/details/movie/${cur.id}`} key={cur.id} className="profile-slide">
                 <span><FontAwesomeIcon icon={faStar} /> 2.3</span>
                 <figure className="profile-figure">
-                <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur[3] : ''} alt={cur[1]} />
+                <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur.img : ''} alt={cur.title} />
                 </figure>
                 <div>
-                    <h4>{cur[1]}</h4>
-                    <p>{cur[2][0].name}</p>
+                    <h4>{cur.title}</h4>
+                    <p>{cur.genres[0].name}</p>
                 </div>
             </Link>
             )): 'Please Favorite Movies To See';
