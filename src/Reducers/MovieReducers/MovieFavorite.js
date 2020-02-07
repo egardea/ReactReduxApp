@@ -8,7 +8,7 @@ const initialState = {
 export default function (state = initialState, action) {
     const newItem = action.payload;
     const favMovies = state.favMovies.slice();
-    const page = Math.ceil((state.favMovies.slice().length + 1) / 8);
+    const page = Math.ceil((state.favMovies.slice().length + 1) / 12);
 
     favMovies.push(newItem);
     switch(action.type) {
