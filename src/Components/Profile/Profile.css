@@ -12,7 +12,13 @@
 }
 #profile-container > div {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
+    width: 75%;
+    position: absolute;
+    right: 0;
     background-color: #b4b4b4;
 }
 .profile-nav-container{
@@ -37,15 +43,15 @@
     align-content: center;
     align-items: center;
 }
-.profile-nav-container > div:first-child > figure{
-    height: 100px;
-    width: 100px;
+.avatar-figure{
+    height: 150px;
+    width: 150px;
 }
-.profile-nav-container > div:first-child > figure > img{
-    height: 100px;
-    width: 100px;
+.avatar-figure > img{
+    height: 100%;
+    width: 100%;
 }
-.profile-nav-container > div:first-child > a {
+#profile-container > section > div > a {
     text-decoration: none;
     color: #f4f4f4;
     height: 25px;
@@ -73,22 +79,21 @@
     font-size: 1rem;
     cursor: pointer;
     background-color: #b4b4b4;
-    transition: all 500ms ease-out;
+    transition: all 500ms ease-in-out;
     outline: none;
 }
 .active-btn{
-    background: #b4b4b4;
-    color:#333;
+    color: #333;
+    width: 75%;
 }
 /**Right Media styles*/
 .profile-media-container{
     height: 100vh;
-    width: 100%;
     margin: 0;
     padding: 0;
 }
-.profile-container > div > h1{
-    margin-bottom: 30px;
+#profile-container > div > h1{
+    padding: 30px 0;
 }
 .profile-media-wrapper{
     padding: 0;
@@ -215,7 +220,9 @@
         padding-top: 75px;
         background-color: red;
         height: 125px;
-
+    }
+    #profile-container > div {
+        width: 100%;
     }
     .profile-nav-container{
         top: 0;
@@ -258,13 +265,12 @@
     }    
 }
 @media only screen and (max-width: 867px) {
-    #profile-container > div {
+    .profile-media-container {
         overflow: scroll;
     }
     .profile-media-wrapper{
         grid-template-columns: repeat(3, 133px);
         padding-bottom: 125px;
-        overflow: scroll;
     }
 }
 @media only screen and (max-width: 567px) {

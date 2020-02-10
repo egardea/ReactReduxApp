@@ -15,11 +15,14 @@ import detailsMovie from '../../Actions/MovieActions/MovieDetails';
 import reviewsMovie from '../../Actions/MovieActions/MovieReviews';
 import trailersMovie from '../../Actions/MovieActions/MovieTrailers';
 import favoriteMovie from '../../Actions/MovieActions/MovieFavorite';
+import ratedMovie from '../../Actions/MovieActions/MovieRated';
 
 import creditsTV from '../../Actions/TVActions/TVCredits';
 import detailsTV from '../../Actions/TVActions/TVDetails';
 import reviewsTV from '../../Actions/TVActions/TVReviews';
 import trailersTV from '../../Actions/TVActions/TVTrailers';
+import favoriteTV from '../../Actions/TVActions/TVFavorite';
+import ratedTV from '../../Actions/TVActions/TVRated';
 
 class MediaDetails extends Component {
 
@@ -28,21 +31,28 @@ class MediaDetails extends Component {
     }
 
     sendFavToStorage = () => {
-        let type = this.props.match.params.type;
+        let type = this.props.match.params.type
+        console.log(type);
         if(type === 'movie') {
             this.props.favoriteMovie({
                 id: this.props.movieDetails.id, title: this.props.movieDetails.title, genres: this.props.movieDetails.genres, img:  this.props.movieDetails.poster_path
             })
         } else if(type === 'tv') {
-
+            this.props.favoriteTV({
+                id: this.props.tvDetails.id, title: this.props.tvDetails.original_name, genres: this.props.tvDetails.genres, img: this.props.tvDetails.poster_path
+            })
         }
     }
     sendRatedToStorage = () => {
         let type = this.props.match.params.type;
         if(type === 'movie') {
-
+            this.props.ratedMovie({
+                id: this.props.movieDetails.id, title: this.props.movieDetails.title, genres: this.props.movieDetails.genres, img: this.props.movieDetails.poster_path
+            });
         } else if(type === 'tv') {
-
+            this.props.ratedTV({
+                id: this.props.tvDetails.id, title: this.props.tvDetails.original_name, genres: this.props.tvDetails.genres, img: this.props.tvDetails.poster_path
+            })
         }
         
     }
@@ -205,10 +215,13 @@ const mapDispatchToProps = dispatch => ({
     reviewsMovie: url => dispatch(reviewsMovie(url)),
     trailersMovie: url => dispatch(trailersMovie(url)),
     favoriteMovie: movie => dispatch(favoriteMovie(movie)),
+    ratedMovie: movie => dispatch(ratedMovie(movie)),
 
     creditsTV: url => dispatch(creditsTV(url)),
     detailsTV: url => dispatch(detailsTV(url)),
     reviewsTV: url => dispatch(reviewsTV(url)),
     trailersTV: url => dispatch(trailersTV(url)),
+    favoriteTV: tv => dispatch(favoriteTV(tv)),
+    ratedTV: tv => dispatch(ratedTV(tv)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(MediaDetails);
