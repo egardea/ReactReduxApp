@@ -7,18 +7,23 @@ import SetMediaType from '../../Reducers/SetMediaType';
 
 const Profile = () => {
 
-    const [currentMediaString, setCurrentMediaString] = useState('Favorite Movies');
-
     const config = useSelector(state => state.apiKeyConfig.images);
-    const {favMovies, page} = useSelector(state => state.movieFavorite);
+    const {favMovies} = useSelector(state => state.movieFavorite);
     const {favTV} = useSelector(state => state.tvFavorite);
     const {ratedMovie} = useSelector(state => state.movieRated);
     const {ratedTV} = useSelector(state => state.tvRated);
 
-    const renderMedia = type => {
+    const [currentMediaString, setCurrentMediaString] = useState('Favorite Movies');
+    const [currentMedia, setCurrentMedia] = useState(favMovies);
+    const [page, setPage] = useState(1);
+
+    const renderMedia = (type, array, pageNum) => {
         let media;
+        let lastIndex = pageNum * 12;
+        let firstIndex = lastIndex - 12;
+        let newArr = array.slice(firstIndex, lastIndex);
         if(type === 'Favorite Movies') {
-            media = favMovies.length > 0 ? favMovies.map((cur) => (
+            media = newArr.length > 0 ? newArr.map((cur) => (
                 <Link to={`/details/movie/${cur.id}`} key={cur.id} className="profile-slide">
                 <figure className="profile-figure">
                 <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur.img : ''} alt={cur.title} />
@@ -30,7 +35,7 @@ const Profile = () => {
             </Link>
             )): 'Please Favorite Movies To See';
         } else if(type === 'Favorite TV') {
-            media = favTV.length > 0 ? favTV.map((cur) => (
+            media = newArr.length > 0 ? newArr.map((cur) => (
                 <Link to={`/details/movie/${cur.id}`} key={cur.id} className="profile-slide">
                 <figure className="profile-figure">
                 <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur.img : ''} alt={cur.title} />
@@ -42,7 +47,7 @@ const Profile = () => {
             </Link>
             )): 'Please Favorite TV To See';
         } else if(type === 'Rated Movies') {
-            media = ratedMovie.length > 0 ? ratedMovie.map((cur) => (
+            media = newArr.length > 0 ? newArr.map((cur) => (
                 <Link to={`/details/movie/${cur.id}`} key={cur.id} className="profile-slide">
                 <figure className="profile-figure">
                 <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur.img : ''} alt={cur.title} />
@@ -54,7 +59,7 @@ const Profile = () => {
             </Link>
             )): 'Please Favorite TV To See';
         } else if(type === 'Rated TV') {
-            media = ratedTV.length > 0 ? ratedTV.map((cur) => (
+            media = newArr.length > 0 ? newArr.map((cur) => (
                 <Link to={`/details/movie/${cur.id}`} key={cur.id} className="profile-slide">
                 <figure className="profile-figure">
                 <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur.img : ''} alt={cur.title} />
@@ -83,6 +88,25 @@ const Profile = () => {
             mediaButtons.forEach((cur, i) => {                
                 cur = cur.innerText === element ? cur.classList.add('active-btn') : '';
             });
+        }
+        let mediaArr;
+        if(element === 'Favorite Movies') {
+            mediaArr = setCurrentMedia(favMovies);
+        } else if(element === 'Favorite TV') {
+            mediaArr = setCurrentMedia(favTV);
+        } else if(element === 'Rated Movies') {
+            mediaArr = setCurrentMedia(ratedMovie);
+        } else if(element === 'Rated TV') {
+            mediaArr = setCurrentMedia(ratedTV);
+        }
+        return mediaArr;
+    }
+    const changePages = (e) => {
+        const id = e.target.id;
+        if(id === 'prev'){
+            setPage(page ===  1 ? 1 : page - 1);
+        } else if(id === 'next') {
+            setPage(page === Math.ceil(currentMedia.length/12) ? page : page + 1);
         }
     }
 
@@ -114,13 +138,13 @@ const Profile = () => {
             <section className="profile-media-container">
                 <div className="profile-media-wrapper">
 
-                    {renderMedia(currentMediaString)}
+                    {renderMedia(currentMediaString, currentMedia, page)}
                     
                 </div>
             </section>
-            <section className="profile-btn-container">
-                <button className="prev-profile">Previous</button> Page {page}
-                <button className="next-profile">Next</button>
+            <section className="profile-btn-container" onClick={changePages}>
+                <button id="prev" className="prev-profile">Previous</button> Page {page}
+                <button id="next" className="next-profile">Next</button>
             </section>
             </div>
         </div>
