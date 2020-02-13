@@ -111,6 +111,7 @@
     color: #333;
     height: 200px;
     width: 133px;
+    z-index: 10;
 }
 .profile-figure{
     height: 200px;
@@ -124,22 +125,26 @@
 }
 .profile-slide > div {
     position: absolute;
-    top: 0;
+    top: 10px;
+    left: 10px;
     height: 100%;
     width: 100%;
     border-radius: 5px;
     background-color: #333;
     transition: all 200ms ease-in-out;
-    visibility: hidden;
+    /*visibility: hidden;*/
     color: #f4f4f4;
     padding: 5px;
+    z-index: -1;
 }
 .profile-slide > div > p{
     font-weight: lighter;
     text-transform: uppercase;
 }
 .profile-slide:hover > div {
-    visibility: visible;
+    z-index: 1;
+    top: 0;
+    left: 0;
 }
 /*pagination controls*/
 .profile-btn-container{
@@ -271,6 +276,14 @@
     .profile-media-wrapper{
         grid-template-columns: repeat(3, 133px);
         padding-bottom: 125px;
+    }
+    .profile-slide{
+        z-index: 0;
+    }
+    .profile-slide:hover > div {
+        z-index: 1;
+        top: 0;
+        left: 0;
     }
 }
 @media only screen and (max-width: 567px) {

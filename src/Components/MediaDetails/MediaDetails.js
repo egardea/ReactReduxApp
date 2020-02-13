@@ -30,14 +30,26 @@ class MediaDetails extends Component {
         this.getMediaData(this.props.match.params.id);
     }
 
+    isDuplicate = (id, array) => {
+        let duplicate = false;
+        if(array.length > 0) {
+            array.forEach((cur) => {
+                if(cur.id === id){
+                    duplicate = true;
+                    alert('Error Cannot Add Any Duplicates');
+                }
+            });
+        } 
+        return duplicate;
+    }
+
     sendFavToStorage = () => {
-        let type = this.props.match.params.type
-        console.log(type);
-        if(type === 'movie') {
+        let type = this.props.match.params.type;
+        if(type === 'movie' && this.isDuplicate(this.props.movieDetails.id, this.props.movieFavorite) === false) {
             this.props.favoriteMovie({
                 id: this.props.movieDetails.id, title: this.props.movieDetails.title, genres: this.props.movieDetails.genres, img:  this.props.movieDetails.poster_path
             })
-        } else if(type === 'tv') {
+        } else if(type === 'tv' && this.isDuplicate(this.props.tvDetails.id, this.props.tvFavorite) === false) {
             this.props.favoriteTV({
                 id: this.props.tvDetails.id, title: this.props.tvDetails.original_name, genres: this.props.tvDetails.genres, img: this.props.tvDetails.poster_path
             })
@@ -45,11 +57,11 @@ class MediaDetails extends Component {
     }
     sendRatedToStorage = () => {
         let type = this.props.match.params.type;
-        if(type === 'movie') {
+        if(type === 'movie' && this.isDuplicate(this.props.movieDetails.id, this.props.movieRated) === false) {
             this.props.ratedMovie({
                 id: this.props.movieDetails.id, title: this.props.movieDetails.title, genres: this.props.movieDetails.genres, img: this.props.movieDetails.poster_path
             });
-        } else if(type === 'tv') {
+        } else if(type === 'tv' && this.isDuplicate(this.props.tvDetails.id, this.props.tvRated) === false) {
             this.props.ratedTV({
                 id: this.props.tvDetails.id, title: this.props.tvDetails.original_name, genres: this.props.tvDetails.genres, img: this.props.tvDetails.poster_path
             })
@@ -202,11 +214,15 @@ const mapStateToProps = state => ({
     movieDetails: state.movieDetails,
     movieReviews: state.movieReviews,
     movieTrailers: state.movieTrailers,
+    movieFavorite: state.movieFavorite.favMovies,
+    movieRated: state.movieRated.ratedMovie,
 
     tvCredits: state.tvCredits,
     tvDetails: state.tvDetails,
     tvReviews: state.tvReviews,
     tvTrailers: state.tvTrailers,
+    tvFavorite: state.tvFavorite.favTV,
+    tvRated: state.tvRated.ratedTV,
 });
 
 const mapDispatchToProps = dispatch => ({
