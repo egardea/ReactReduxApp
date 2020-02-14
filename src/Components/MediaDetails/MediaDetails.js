@@ -1,14 +1,15 @@
-import React, {Component} from 'react'
+import React, {Component, useEffect} from 'react'
 import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretLeft, faHeart, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faCaretLeft, faHeart, faStar, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import './MediaDetails.css';
 import Trailer from './Trailer';
 import Summary from './Summary';
 import Cast from './Cast';
 import Reviews from './Reviews';
+import Stars from './Stars';
 
 import creditsMovie from '../../Actions/MovieActions/MovieCredits';
 import detailsMovie from '../../Actions/MovieActions/MovieDetails';
@@ -68,6 +69,9 @@ class MediaDetails extends Component {
         }
         
     }
+    rateMedia = () => {
+
+    }
     
     getMediaData = (id, type = this.props.match.params.type) => {
         if(type === 'movie') {
@@ -90,6 +94,7 @@ class MediaDetails extends Component {
             case 'movie':
             return (
             <header>
+
                 <span><FontAwesomeIcon icon={faCaretLeft} /></span>
                 <figure>
                     <img src={this.config && this.props.movieDetails.backdrop_path ? this.config.secure_base_url + this.config.backdrop_sizes[2] + this.props.movieDetails.backdrop_path : ''} alt={this.props.movieDetails.title} />
@@ -98,12 +103,26 @@ class MediaDetails extends Component {
                     <img src={this.config && this.props.movieDetails.poster_path ? this.config.secure_base_url + this.config.poster_sizes[3] + this.props.movieDetails.poster_path : ''} alt={this.props.movieDetails.title} />
                     <div>
                         <h2>{this.props.movieDetails.title}</h2>
-                        <p><span onClick={this.sendRatedToStorage}>{this.props.movieDetails.vote_average}</span> | <span className="favorite-media" onClick={this.sendFavToStorage}><FontAwesomeIcon icon={faHeart} /></span></p>
+                        <p><span className="rated" onClick={this.rateMedia}><Stars rating={this.props.movieDetails.vote_average} /></span> | <span className="favorite-media" onClick={this.sendFavToStorage}><FontAwesomeIcon icon={faHeart} /></span></p>
                         <p>{this.props.movieDetails.status}</p>
                         <p>{this.props.movieDetails.budget}</p>
                         <p>{this.props.movieDetails.genres ? this.props.movieDetails.genres[0].name : ''}</p>
                     </div>
+                    <div id="rating-container">
+                    <span><FontAwesomeIcon icon={faTimes} /></span>
+                    <div>
+                        <select>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                        </select>
+                        <button onClick={this.sendRatedToStorage}>Send Rating</button>
+                    </div>
+                    </div>
                 </div>
+
             </header>
             );
             case 'tv' :
@@ -118,7 +137,7 @@ class MediaDetails extends Component {
                     <img src={this.config && this.props.tvDetails.poster_path ? this.config.secure_base_url + this.config.poster_sizes[3] + this.props.tvDetails.poster_path : ''} alt={this.props.tvDetails.title} />
                     <div>
                         <h2>{this.props.tvDetails.name}</h2>
-                        <p><span onClick={this.sendRatedToStorage}>{this.props.tvDetails.vote_average}</span> | <span className="favorite-media" onClick={this.sendFavToStorage}><FontAwesomeIcon icon={faHeart} /></span></p>
+                        <p><span className="rated" onClick={this.sendRatedToStorage}>{this.props.tvDetails.vote_average}</span> | <span className="favorite-media" onClick={this.sendFavToStorage}><FontAwesomeIcon icon={faHeart} /></span></p>
                         <p>{this.props.tvDetails.status}</p>
                         <p>{this.props.movieDetails.budget}</p>
                         <p>{this.props.tvDetails.genres ? this.props.tvDetails.genres[0].name : ''}</p>

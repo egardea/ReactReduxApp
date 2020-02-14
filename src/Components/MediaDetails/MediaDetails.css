@@ -46,6 +46,8 @@ header > figure > img {
     width: 75%;
     bottom: 175px;
     left: 25px;
+    background: red;
+    border-radius: 5px;
 }
 .movie-details-info > img {
     height: 150px;
@@ -63,9 +65,54 @@ header > figure > img {
 .movie-details-info > div{
     position: absolute;
     bottom: 0;
-    line-height: 1.75rem;
+    /*line-height: 1.75rem;*/
     height: 150px;
     left: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.rated{
+    cursor: pointer;
+}
+
+/*Star Rating Styles*/
+.star-rating-container{
+    display: flex;
+    flex-direction: row;
+}
+.star-rating-container-item{
+    font-size: .75rem;
+    color: #f9f9f9;
+}
+.star-rating-container-item-active{
+    color: gold;
+}
+
+/* Rating Pop Up Styles*/
+#rating-container{
+    position: relative;
+    bottom: 21px;
+    left: 0;
+    height: 150px;
+    width: 250px;
+    background-color: #333;
+    color: #f9f9f9;
+    z-index: 10;
+    border-radius: 5px;
+}
+#rating-container > span {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 2rem;
+    margin: auto;
+    cursor: pointer;
+}
+#rating-container > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 /**Main Element styling */

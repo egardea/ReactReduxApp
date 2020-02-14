@@ -24,7 +24,7 @@ const Profile = () => {
         let newArr = array.slice(firstIndex, lastIndex);
         if(type === 'Favorite Movies') {
             media = newArr.length > 0 ? newArr.map((cur) => (
-                <Link to={`/details/${'movie'}/${cur.id}`} key={cur.id} className="profile-slide">
+                <Link to={`/details/movie/${cur.id}`} key={cur.id} className="profile-slide">
                 <figure className="profile-figure">
                 <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur.img : ''} alt={cur.title} />
                 </figure>
@@ -36,7 +36,7 @@ const Profile = () => {
             )): 'Please Favorite Movies To See';
         } else if(type === 'Favorite TV') {
             media = newArr.length > 0 ? newArr.map((cur) => (
-                <Link to={`/details/${'movie'}/${cur.id}`} key={cur.id} className="profile-slide">
+                <Link to={`/details/tv/${cur.id}`} key={cur.id} className="profile-slide">
                 <figure className="profile-figure">
                 <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur.img : ''} alt={cur.title} />
                 </figure>
@@ -48,7 +48,7 @@ const Profile = () => {
             )): 'Please Favorite TV To See';
         } else if(type === 'Rated Movies') {
             media = newArr.length > 0 ? newArr.map((cur) => (
-                <Link to={`/details/${'tv'}/${cur.id}`} key={cur.id} className="profile-slide">
+                <Link to={`/details/movie/${cur.id}`} key={cur.id} className="profile-slide">
                 <figure className="profile-figure">
                 <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur.img : ''} alt={cur.title} />
                 </figure>
@@ -60,7 +60,7 @@ const Profile = () => {
             )): 'Please Favorite TV To See';
         } else if(type === 'Rated TV') {
             media = newArr.length > 0 ? newArr.map((cur) => (
-                <Link to={`/details/${'tv'}tv/${cur.id}`} key={cur.id} className="profile-slide">
+                <Link to={`/details/tv/${cur.id}`} key={cur.id} className="profile-slide">
                 <figure className="profile-figure">
                 <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur.img : ''} alt={cur.title} />
                 </figure>

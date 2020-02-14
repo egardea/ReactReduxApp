@@ -71,7 +71,7 @@
     height: 50px;
     position: relative;
     left: 0;
-    width: 100%;
+    width: 75%;
     border: none;
     border-radius: 5px;
     color: #f4f4f4;
@@ -82,9 +82,10 @@
     transition: all 500ms ease-in-out;
     outline: none;
 }
+
 .active-btn{
     color: #333;
-    width: 75%;
+    width: 100%;
 }
 /**Right Media styles*/
 .profile-media-container{
@@ -111,7 +112,7 @@
     color: #333;
     height: 200px;
     width: 133px;
-    z-index: 10;
+    z-index: 9;
 }
 .profile-figure{
     height: 200px;
@@ -232,6 +233,7 @@
     .profile-nav-container{
         top: 0;
         left: -400px;
+        z-index: 10;
     }
     .slide-profile-nav-container{
         left: 0;
