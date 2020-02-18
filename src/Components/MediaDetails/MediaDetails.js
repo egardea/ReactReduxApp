@@ -1,4 +1,4 @@
-import React, {Component, useEffect} from 'react'
+import React, {Component} from 'react'
 import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -27,10 +27,15 @@ import ratedTV from '../../Actions/TVActions/TVRated';
 
 class MediaDetails extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            displayRating: false,
+        }
+    }
     componentDidMount() {
         this.getMediaData(this.props.match.params.id);
     }
-
     isDuplicate = (id, array) => {
         let duplicate = false;
         if(array.length > 0) {
@@ -43,7 +48,6 @@ class MediaDetails extends Component {
         } 
         return duplicate;
     }
-
     sendFavToStorage = () => {
         let type = this.props.match.params.type;
         if(type === 'movie' && this.isDuplicate(this.props.movieDetails.id, this.props.movieFavorite) === false) {
@@ -69,10 +73,16 @@ class MediaDetails extends Component {
         }
         
     }
-    rateMedia = () => {
-
+    displayRating = () => {
+        const parent = document.querySelector('.rating-container');
+        if(this.state.displayRating === false){
+            this.setState({displayRating : true});
+            parent.classList.add('animate-rating-container');
+        } else {
+            this.setState({displayRating : false});
+            parent.classList.remove('animate-rating-container');
+        }
     }
-    
     getMediaData = (id, type = this.props.match.params.type) => {
         if(type === 'movie') {
             this.props.creditsMovie(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${this.props.apiKey}`);
@@ -96,20 +106,8 @@ class MediaDetails extends Component {
             <header>
 
                 <span><FontAwesomeIcon icon={faCaretLeft} /></span>
-                <figure>
-                    <img src={this.config && this.props.movieDetails.backdrop_path ? this.config.secure_base_url + this.config.backdrop_sizes[2] + this.props.movieDetails.backdrop_path : ''} alt={this.props.movieDetails.title} />
-                </figure>
-                <div className="movie-details-info">
-                    <img src={this.config && this.props.movieDetails.poster_path ? this.config.secure_base_url + this.config.poster_sizes[3] + this.props.movieDetails.poster_path : ''} alt={this.props.movieDetails.title} />
-                    <div>
-                        <h2>{this.props.movieDetails.title}</h2>
-                        <p><span className="rated" onClick={this.rateMedia}><Stars rating={this.props.movieDetails.vote_average} /></span> | <span className="favorite-media" onClick={this.sendFavToStorage}><FontAwesomeIcon icon={faHeart} /></span></p>
-                        <p>{this.props.movieDetails.status}</p>
-                        <p>{this.props.movieDetails.budget}</p>
-                        <p>{this.props.movieDetails.genres ? this.props.movieDetails.genres[0].name : ''}</p>
-                    </div>
-                    <div id="rating-container">
-                    <span><FontAwesomeIcon icon={faTimes} /></span>
+                <span id="rating-container-btn" onClick={this.displayRating}>{this.state.displayRating === false ? <FontAwesomeIcon icon={faStar} /> : <FontAwesomeIcon icon={faTimes} /> }</span>
+                <div className="rating-container">
                     <div>
                         <select>
                                 <option value="1">1</option>
@@ -120,7 +118,20 @@ class MediaDetails extends Component {
                         </select>
                         <button onClick={this.sendRatedToStorage}>Send Rating</button>
                     </div>
+                </div>
+                <figure>
+                    <img src={this.config && this.props.movieDetails.backdrop_path ? this.config.secure_base_url + this.config.backdrop_sizes[2] + this.props.movieDetails.backdrop_path : ''} alt={this.props.movieDetails.title} />
+                </figure>
+                <div className="movie-details-info">
+                    <img src={this.config && this.props.movieDetails.poster_path ? this.config.secure_base_url + this.config.poster_sizes[3] + this.props.movieDetails.poster_path : ''} alt={this.props.movieDetails.title} />
+                    <div>
+                        <h2>{this.props.movieDetails.title}</h2>
+                        <div><span className="rated"><Stars rating={this.props.movieDetails.vote_average} /></span> | <span className="favorite-media" onClick={this.sendFavToStorage}><FontAwesomeIcon icon={faHeart} /></span></div>
+                        <p>{this.props.movieDetails.status}</p>
+                        <p>{this.props.movieDetails.budget}</p>
+                        <p>{this.props.movieDetails.genres ? this.props.movieDetails.genres[0].name : ''}</p>
                     </div>
+                    
                 </div>
 
             </header>
@@ -129,6 +140,19 @@ class MediaDetails extends Component {
             return (
             <header>
                 <span><FontAwesomeIcon icon={faCaretLeft} /></span>
+                <span id="rating-container-btn" onClick={this.displayRating}>{this.state.displayRating === false ? <FontAwesomeIcon icon={faStar} /> : <FontAwesomeIcon icon={faTimes} /> }</span>
+                <div className="rating-container">
+                    <div>
+                        <select>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                        </select>
+                        <button onClick={this.sendRatedToStorage}>Send Rating</button>
+                    </div>
+                </div>
                 <figure>
                     <img src={this.config && this.props.tvDetails.backdrop_path ? this.config.secure_base_url + this.config.backdrop_sizes[2] + this.props.tvDetails.backdrop_path : ''} alt={this.props.tvDetails.name} />
                 </figure>
@@ -137,7 +161,7 @@ class MediaDetails extends Component {
                     <img src={this.config && this.props.tvDetails.poster_path ? this.config.secure_base_url + this.config.poster_sizes[3] + this.props.tvDetails.poster_path : ''} alt={this.props.tvDetails.title} />
                     <div>
                         <h2>{this.props.tvDetails.name}</h2>
-                        <p><span className="rated" onClick={this.sendRatedToStorage}>{this.props.tvDetails.vote_average}</span> | <span className="favorite-media" onClick={this.sendFavToStorage}><FontAwesomeIcon icon={faHeart} /></span></p>
+                        <div><span className="rated" onClick={this.sendRatedToStorage}><Stars rating={this.props.tvDetails.vote_average} /></span> | <span className="favorite-media" onClick={this.sendFavToStorage}><FontAwesomeIcon icon={faHeart} /></span></div>
                         <p>{this.props.tvDetails.status}</p>
                         <p>{this.props.movieDetails.budget}</p>
                         <p>{this.props.tvDetails.genres ? this.props.tvDetails.genres[0].name : ''}</p>

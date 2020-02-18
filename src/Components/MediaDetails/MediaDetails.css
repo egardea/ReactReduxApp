@@ -9,7 +9,7 @@ header{
     position: relative;
     color: white;
 }
-header > span {
+header > span:first-child {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -30,7 +30,7 @@ header > figure::before {
     position: absolute;
     top: 0;
     left: 0;
-    background-image: linear-gradient(to top, #333333, #393939, #939393, #c5c5c5, #f9f9f9);
+    background-image: linear-gradient(to top, #333333, #393939, #939393);
     opacity: .5;
 }
 header > figure > img {
@@ -46,7 +46,6 @@ header > figure > img {
     width: 75%;
     bottom: 175px;
     left: 25px;
-    background: red;
     border-radius: 5px;
 }
 .movie-details-info > img {
@@ -61,19 +60,30 @@ header > figure > img {
     font-size: 1rem;
     transition: all 250ms ease-in-out;
     cursor: pointer;
+    margin-left: 5px;
 }
 .movie-details-info > div{
     position: absolute;
-    bottom: 0;
-    /*line-height: 1.75rem;*/
-    height: 150px;
+    line-height: 1.5;
+    bottom: 25px;
     left: 120px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
 }
+.movie-details-info > div > h2{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 34em;
+}
+.movie-details-info > div > div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 .rated{
-    cursor: pointer;
+    margin-right: 5px;
 }
 
 /*Star Rating Styles*/
@@ -90,29 +100,50 @@ header > figure > img {
 }
 
 /* Rating Pop Up Styles*/
-#rating-container{
-    position: relative;
-    bottom: 21px;
-    left: 0;
+.rating-container{
+    position: absolute;
+    top: -500px;
+    right: 10px;
+    opacity: 0.1;
     height: 150px;
     width: 250px;
     background-color: #333;
     color: #f9f9f9;
-    z-index: 10;
+    z-index: 8;
     border-radius: 5px;
+    transition: all ease-in-out 250ms;
 }
-#rating-container > span {
+.animate-rating-container{
+    top: 25px;
+    right: 10px;
+    opacity: 1;
+}
+#rating-container-btn {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    z-index: 9;
+    top: 25px;
+    right: 25px;
     font-size: 2rem;
     margin: auto;
     cursor: pointer;
+    transition: all ease-in-out 250ms;
 }
-#rating-container > div {
+.rating-container > div {
     display: flex;
+    height: 100%;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
+}
+.rating-container > div > select, button{
+    border: none;
+    height: 50px;
+}
+.rating-container > div > select {
+    border-radius: 5px 0 0 5px;
+}
+.rating-container > div > button {
+    border-radius: 0 5px 5px 0;
 }
 
 /**Main Element styling */
@@ -275,6 +306,9 @@ section > h1{
         left: 100px;
         line-height: 1.5;
     }
+    .movie-details-info > div > h2{
+        width: 25em;
+    }
 }
 @media only screen and  (max-width: 867px){
     header{
@@ -310,10 +344,16 @@ section > h1{
     #reviews{
         width: 90%;
     }
+    .movie-details-info > div > h2{
+        width: 13em;
+    }
 }
 @media only screen and (max-width: 425px) {
     .trailer-slide{
         width: 350px;
         height: 250px;
+    }
+    .movie-details-info > div > h2{
+        width: 7.5em;
     }
 }
