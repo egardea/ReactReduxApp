@@ -2,6 +2,7 @@ import {combineReducers} from 'redux';
 import apiKeyConfig from './ApiKeyConfig';
 import setMediaType from './SetMediaType';
 import searchResult from './SearchResult';
+import session from './Session';
 
 import trendingMovie from './MovieReducers/Trending';
 import movieCredits from './MovieReducers/MovieCredits';
@@ -56,5 +57,6 @@ export default combineReducers({
     movieFavorite,
     tvFavorite,
     movieRated,
-    tvRated
+    tvRated,
+    session,
 });

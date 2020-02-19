@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch} from 'react-router-dom';
+import { Route, Switch, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
 import './App.css';
 
@@ -28,16 +28,22 @@ class App extends Component {
       <Switch>
         <Route path="/search-result/:id" component={SearchResults} />
         <Route path="/details/:type/:id" component={MediaDetails} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/login" component={Login} />
+        <PrivateRoute path="/profile" render={this.props.session} />
         <Route path="/" component={Home} />
       </Switch>
     );
   }
 }
 
+const PrivateRoute = (props) => (
+    props.session === 'guest' 
+    ? <Route path='/profile' component={Profile} /> 
+    : <Route to='/login' component={Login} />
+)
+
 const mapStateToProps = state => ({
-  apiKey: state.apiKeyConfig.apiKey
+  apiKey: state.apiKeyConfig.apiKey,
+  session: state.session.session,
 });
 
 const mapDispatchToProps = dispatch => ({

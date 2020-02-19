@@ -73,7 +73,7 @@ class MediaDetails extends Component {
         }
         
     }
-    displayRating = () => {
+    displayRating = (e) => {
         const parent = document.querySelector('.rating-container');
         if(this.state.displayRating === false){
             this.setState({displayRating : true});

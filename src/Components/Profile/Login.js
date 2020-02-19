@@ -1,8 +1,22 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux';
+
+import getSession from '../../Actions/Session';
 
 import './Profile.css';
 
 class Login extends Component {
+
+    createGuestSession = () => {
+        if(this.props.token === null) {
+            this.props.getSession(`https://api.themoviedb.org/3/authentication/guest_session/new?api_key=${this.props.apiKey}`, 'guest');
+            console.log('worked');
+        } else {
+            alert('You have a token already GREEDY!');
+            console.log('didnt');
+        }
+    }
+
     render() {
         return (
             <div id="login-container">
@@ -12,10 +26,19 @@ class Login extends Component {
                     <input placeholder="Password" />
                     <button>Login</button>
                     <div></div>
-                    <button>Guest Login</button>
+                    <button onClick={this.createGuestSession}>Guest Login</button>
                 </div>
             </div>
         )
     }
 }
-export default Login;
+
+const mapStateToProps = state => ({
+    apiKey: state.apiKeyConfig.apiKey,
+    token: state.session.token,
+});
+
+const mapDispatchToProps = dispatch => ({
+    getSession: (url ,session) => dispatch(getSession(url, session)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

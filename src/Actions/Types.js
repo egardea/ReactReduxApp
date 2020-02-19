@@ -2,6 +2,8 @@ export const API_KEY_CONFIG = 'API_KEY-CONFIG';
 export const SET_MEDIA_TYPE_TV = 'SET_MEDIA_TYPE_TV';
 export const SET_MEDIA_TYPE_MOVIE = 'SET_MEDIA_TYPE_MOVIE';
 export const SEARCH_RESULT = 'SEARCH_RESULT';
+export const TOKEN = 'TOKEN';
+export const SESSION_TYPE = 'SESSION_TYPE';
 
 export const TRENDING_MOVIE = 'TRENDING_MOVIE';
 export const MOVIE_CREDITS = 'MOVIE_CREDITS';
