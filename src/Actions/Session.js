@@ -10,10 +10,13 @@ const saveToken = payload => ({
     payload
 });
 
-const getSession = (url, session) => dispatch => {
+export const getSession = (url, session) => dispatch => {
     Axios.get(url)
     .then(response => dispatch(saveToken(response.data.guest_session_id)))
-    .then(() => dispatch(saveData(session)))
     .catch(error => console.log(error));
+    dispatch(saveToken(url));
+    dispatch(saveData(session));
 }
-export default getSession;
+export const logOut = (session) => dispatch => {
+    dispatch(saveData(session));
+}

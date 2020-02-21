@@ -1,5 +1,4 @@
 import { TOKEN, SESSION_TYPE } from '../Actions/Types';
-import { act } from 'react-dom/test-utils';
 
 const initialState = {
     session: 'public',
@@ -7,18 +6,18 @@ const initialState = {
 };
 
 export default function(state = initialState, action) {
-    console.log(action.payload);
     switch (action.type) {
         case SESSION_TYPE:
             return {
+                ...state,
                 session: action.payload
             };
         case TOKEN:
             return {
+                ...state,
                 token: action.payload
             }
         default:
             return state;
     }
-    
 };

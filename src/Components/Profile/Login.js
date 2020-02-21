@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
 
-import getSession from '../../Actions/Session';
+import {getSession} from '../../Actions/Session';
 
 import './Profile.css';
 
@@ -10,10 +10,10 @@ class Login extends Component {
     createGuestSession = () => {
         if(this.props.token === null) {
             this.props.getSession(`https://api.themoviedb.org/3/authentication/guest_session/new?api_key=${this.props.apiKey}`, 'guest');
-            console.log('worked');
+        } else if (this.props.token !== null) {
+            this.props.getSession(this.props.token, 'guest');
         } else {
             alert('You have a token already GREEDY!');
-            console.log('didnt');
         }
     }
 

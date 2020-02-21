@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react'
+import React, { useState  } from 'react'
 import {Link} from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import './Profile.css';
 import SetMediaType from '../../Reducers/SetMediaType';
+import {logOut} from '../../Actions/Session'
 
 const Profile = () => {
 
     const config = useSelector(state => state.apiKeyConfig.images);
+    const dispatch = useDispatch();
     const {favMovies} = useSelector(state => state.movieFavorite);
     const {favTV} = useSelector(state => state.tvFavorite);
     const {ratedMovie} = useSelector(state => state.movieRated);
@@ -123,7 +125,7 @@ const Profile = () => {
                         <img src={'https://cdn.onlinewebfonts.com/svg/img_568656.png'} alt={''} />
                     </figure>
                     <p>Welcome Guest</p>
-                    <a href={'/'}>Log Out</a>
+                    <Link onClick={() => dispatch(logOut('public'))}>Log Out</Link>
                 </div>
                 <div className="toggle-btn-container" onClick={mediaButtons}>
                     <button className='profile-btn active-btn' name="favMovies">Favorite Movies</button>

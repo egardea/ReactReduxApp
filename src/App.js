@@ -28,7 +28,7 @@ class App extends Component {
       <Switch>
         <Route path="/search-result/:id" component={SearchResults} />
         <Route path="/details/:type/:id" component={MediaDetails} />
-        <PrivateRoute path="/profile" render={this.props.session} />
+        <PrivateRoute path="/profile" session={this.props.session} />
         <Route path="/" component={Home} />
       </Switch>
     );
@@ -36,13 +36,14 @@ class App extends Component {
 }
 
 const PrivateRoute = (props) => (
-    props.session === 'guest' 
+    props.session === 'guest'
     ? <Route path='/profile' component={Profile} /> 
     : <Route to='/login' component={Login} />
 )
 
 const mapStateToProps = state => ({
   apiKey: state.apiKeyConfig.apiKey,
+  token: state.session.token,
   session: state.session.session,
 });
 

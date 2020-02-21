@@ -39,7 +39,8 @@ store.subscribe(throttle(() => {
         movieFavorite: store.getState().movieFavorite,
         tvFavorite: store.getState().tvFavorite,
         movieRated: store.getState().movieRated,
-        tvRated: store.getState().tvRated
+        tvRated: store.getState().tvRated,
+        session: store.getState().session
     });
 }, 1000));
 
