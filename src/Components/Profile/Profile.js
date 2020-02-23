@@ -1,10 +1,12 @@
 import React, { useState  } from 'react'
 import {Link} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import {logOut} from '../../Actions/Session';
+import {deleteFavorite} from '../../Actions/MovieActions/MovieFavorite';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes, faRoad } from '@fortawesome/free-solid-svg-icons';
 
 import './Profile.css';
-import SetMediaType from '../../Reducers/SetMediaType';
-import {logOut} from '../../Actions/Session'
 
 const Profile = () => {
 
@@ -19,14 +21,26 @@ const Profile = () => {
     const [currentMedia, setCurrentMedia] = useState(favMovies);
     const [page, setPage] = useState(1);
 
+    const deleteItem = (e) => {
+        if(e.target.id === 'delete-btn'){
+            console.log(e.target.parentNode.dataset.id);
+            dispatch(deleteFavorite(e.target.parentNode.dataset.id));
+        }
+    }
+
     const renderMedia = (type, array, pageNum) => {
         let media;
         let lastIndex = pageNum * 12;
-        let firstIndex = lastIndex - 12;
+        let firstIndex = lastIndex -12;
         let newArr = array.slice(firstIndex, lastIndex);
         if(type === 'Favorite Movies') {
-            media = newArr.length > 0 ? newArr.map((cur) => (
-                <Link to={`/details/movie/${cur.id}`} key={cur.id} className="profile-slide">
+            media = newArr.length > 0 ? newArr.map((cur, index) => (
+                <div key={cur.id} data-id={cur.id} className="profile-slide">
+                    <div id="delete-btn">
+                        <div></div>
+                        <div></div>
+                    </div>
+                <Link to={`/details/movie/${cur.id}`}>
                 <figure className="profile-figure">
                 <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur.img : ''} alt={cur.title} />
                 </figure>
@@ -34,10 +48,16 @@ const Profile = () => {
                     <h4>{cur.title}</h4>
                     <p>{cur.genres[0].name}</p>
                 </div>
-            </Link>
+                </Link>
+                </div>
             )): 'Please Favorite Movies To See';
         } else if(type === 'Favorite TV') {
-            media = newArr.length > 0 ? newArr.map((cur) => (
+            media = newArr.length > 0 ? newArr.map((cur, index) => (
+                <div key={cur.id} data-id={cur} className="profile-slide">
+                    <div id="delete-btn">
+                        <div></div>
+                        <div></div>
+                    </div>
                 <Link to={`/details/tv/${cur.id}`} key={cur.id} className="profile-slide">
                 <figure className="profile-figure">
                 <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur.img : ''} alt={cur.title} />
@@ -47,9 +67,15 @@ const Profile = () => {
                     <p>{cur.genres[0].name}</p>
                 </div>
             </Link>
+            </div>  
             )): 'Please Favorite TV To See';
         } else if(type === 'Rated Movies') {
-            media = newArr.length > 0 ? newArr.map((cur) => (
+            media = newArr.length > 0 ? newArr.map((cur, index) => (
+                <div key={cur.id} data-id={cur.id} className="profile-slide">
+                    <div id="delete-btn">
+                        <div></div>
+                        <div></div>
+                    </div>
                 <Link to={`/details/movie/${cur.id}`} key={cur.id} className="profile-slide">
                 <figure className="profile-figure">
                 <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur.img : ''} alt={cur.title} />
@@ -59,9 +85,15 @@ const Profile = () => {
                     <p>{cur.genres[0].name}</p>
                 </div>
             </Link>
+            </div>
             )): 'Please Favorite TV To See';
         } else if(type === 'Rated TV') {
-            media = newArr.length > 0 ? newArr.map((cur) => (
+            media = newArr.length > 0 ? newArr.map((cur, index) => (
+                <div key={cur.id} data-id={cur.id} className="profile-slide">
+                    <div id="delete-btn">
+                        <div></div>
+                        <div></div>
+                    </div>
                 <Link to={`/details/tv/${cur.id}`} key={cur.id} className="profile-slide">
                 <figure className="profile-figure">
                 <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur.img : ''} alt={cur.title} />
@@ -71,6 +103,7 @@ const Profile = () => {
                     <p>{cur.genres[0].name}</p>
                 </div>
             </Link>
+            </div>
             )): 'Please Favorite TV To See';
         }
         return media;
@@ -105,8 +138,8 @@ const Profile = () => {
     }
     const changePages = (e) => {
         const id = e.target.id;
-        if(id === 'prev'){
-            setPage(page ===  1 ? 1 : page - 1);
+        if(id === 'prev') {
+            setPage(page === 1 ? 1 : page - 1);
         } else if(id === 'next') {
             setPage(page === Math.ceil(currentMedia.length/12) ? page : page + 1);
         }
@@ -125,7 +158,7 @@ const Profile = () => {
                         <img src={'https://cdn.onlinewebfonts.com/svg/img_568656.png'} alt={''} />
                     </figure>
                     <p>Welcome Guest</p>
-                    <Link onClick={() => dispatch(logOut('public'))}>Log Out</Link>
+                    <Link to={'/'} onClick={() => dispatch(logOut('public'))}>Log Out</Link>
                 </div>
                 <div className="toggle-btn-container" onClick={mediaButtons}>
                     <button className='profile-btn active-btn' name="favMovies">Favorite Movies</button>
@@ -138,7 +171,7 @@ const Profile = () => {
             <div>
             <h1>{currentMediaString}</h1>
             <section className="profile-media-container">
-                <div className="profile-media-wrapper">
+                <div className="profile-media-wrapper" onClick={deleteItem}>
 
                     {renderMedia(currentMediaString, currentMedia, page)}
                     

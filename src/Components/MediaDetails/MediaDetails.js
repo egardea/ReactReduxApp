@@ -15,7 +15,7 @@ import creditsMovie from '../../Actions/MovieActions/MovieCredits';
 import detailsMovie from '../../Actions/MovieActions/MovieDetails';
 import reviewsMovie from '../../Actions/MovieActions/MovieReviews';
 import trailersMovie from '../../Actions/MovieActions/MovieTrailers';
-import favoriteMovie from '../../Actions/MovieActions/MovieFavorite';
+import {favoriteMovie} from '../../Actions/MovieActions/MovieFavorite';
 import ratedMovie from '../../Actions/MovieActions/MovieRated';
 
 import creditsTV from '../../Actions/TVActions/TVCredits';
@@ -62,16 +62,16 @@ class MediaDetails extends Component {
     }
     sendRatedToStorage = () => {
         let type = this.props.match.params.type;
-        if(type === 'movie' && this.isDuplicate(this.props.movieDetails.id, this.props.movieRated) === false) {
+        const ratingNum = parseInt(document.querySelector('select').value) * 2;
+        if(type === 'movie' && this.isDuplicate(this.props.movieDetails.id, this.props.movieRated) === false && this.props.token !== null) {
             this.props.ratedMovie({
-                id: this.props.movieDetails.id, title: this.props.movieDetails.title, genres: this.props.movieDetails.genres, img: this.props.movieDetails.poster_path
+                id: this.props.movieDetails.id, title: this.props.movieDetails.title, genres: this.props.movieDetails.genres, img: this.props.movieDetails.poster_path, ourRating: ratingNum
             });
-        } else if(type === 'tv' && this.isDuplicate(this.props.tvDetails.id, this.props.tvRated) === false) {
+        } else if(type === 'tv' && this.isDuplicate(this.props.tvDetails.id, this.props.tvRated) === false  && this.props.token !== null) {
             this.props.ratedTV({
-                id: this.props.tvDetails.id, title: this.props.tvDetails.original_name, genres: this.props.tvDetails.genres, img: this.props.tvDetails.poster_path
+                id: this.props.tvDetails.id, title: this.props.tvDetails.original_name, genres: this.props.tvDetails.genres, img: this.props.tvDetails.poster_path, ourRating: ratingNum
             })
         }
-        
     }
     displayRating = (e) => {
         const parent = document.querySelector('.rating-container');
@@ -252,6 +252,7 @@ const mapStateToProps = state => ({
     apiKey: state.apiKeyConfig.apiKey,
     config: state.apiKeyConfig,
     type: state.setMediaType,
+    token: state.session.token,
 
     movieCredits: state.movieCredits,
     movieDetails: state.movieDetails,
