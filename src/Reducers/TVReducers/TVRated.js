@@ -1,20 +1,32 @@
-import {TV_RATED} from '../../Actions/Types';
+import {TV_RATED, DELETE_TV_RATED} from '../../Actions/Types';
 
 const initialState = {
     ratedTV: [],
-    pages: 1
 }
 
 export default function(state = initialState, action) {
-    const newItem = action.payload;
-    const ratedTV = state.ratedTV.slice();
-    const pages = Math.ceil((state.ratedTV.slice().length + 1) / 12);
-    ratedTV.push(newItem);
+    let ratedTV;
+    if(action.type === 'TV_RATED') {
+        const newItem = action.payload;
+        ratedTV = state.ratedTV.slice();
+        ratedTV.push(newItem);
+    } else if(action.type === 'DELETE_MOVIE_RATED'){
+        const id = action.payload;
+        ratedTV = state.ratedTV.slice();
+        ratedTV.filter((cur, index) => {
+            if(cur.id == id) {
+                return ratedTV.splice(index, 1);
+            }
+        })
+    }
     switch(action.type) {
         case TV_RATED:
             return {
                 ratedTV,
-                pages
+            }
+        case DELETE_TV_RATED:
+            return {
+                ratedTV,
             }
         default:
             return state;

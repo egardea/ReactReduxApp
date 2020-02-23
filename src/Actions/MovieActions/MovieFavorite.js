@@ -1,4 +1,4 @@
-import { MOVIE_FAVORITE, DELETE_MOVIE_RATED } from '../Types';
+import { MOVIE_FAVORITE, DELETE_MOVIE_FAVORITE } from '../Types';
 
 const saveData = payload => ({
     type: MOVIE_FAVORITE,
@@ -6,7 +6,7 @@ const saveData = payload => ({
 });
 
 const deleteData = payload => ({
-    type: DELETE_MOVIE_RATED,
+    type: DELETE_MOVIE_FAVORITE,
     payload
 })
 export const favoriteMovie = movie => dispatch => {

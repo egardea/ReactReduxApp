@@ -17,6 +17,7 @@ export const TOP_RATED_MOVIES = 'TOP_RATED_MOVIES';
 export const UPCOMING_MOVIES = 'UPCOMING_MOVIES';
 export const MOVIE_FAVORITE = 'MOVIE_FAVORITE';
 export const MOVIE_RATED = 'MOVIE_RATED';
+export const DELETE_MOVIE_FAVORITE = 'DELETE_MOVIE_FAVORITE';
 export const DELETE_MOVIE_RATED = 'DELETE_MOVIE_RATED';
 
 export const TRENDING_TV = 'TRENDING_TV';
@@ -31,6 +32,7 @@ export const POPULAR_TV = 'POPULAR_TV';
 export const TOP_RATED = 'TOP_RATED';
 export const TV_FAVORITE = 'TV_FAVORITE';
 export const TV_RATED = 'TV_RATED';
+export const DELETE_TV_FAVORITE = 'DELETE_TV_FAVORITE';
 export const DELETE_TV_RATED = 'DELETE_TV_RATED';
 
 

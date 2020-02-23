@@ -1,4 +1,4 @@
-import {MOVIE_FAVORITE, DELETE_MOVIE_RATED} from '../../Actions/Types';
+import {MOVIE_FAVORITE, DELETE_MOVIE_FAVORITE} from '../../Actions/Types';
 
 const initialState = {
     favMovies: [],
@@ -6,12 +6,11 @@ const initialState = {
 
 export default function (state = initialState, action) {
     let favMovies;
-    console.log(action);
     if(action.type === 'MOVIE_FAVORITE') {
         const newItem = action.payload;
         favMovies = state.favMovies.slice();
         favMovies.push(newItem);
-    } else if(action.type === 'DELETE_MOVIE_RATED'){
+    } else if(action.type === 'DELETE_MOVIE_FAVORITE'){
         const id = action.payload;
         favMovies = state.favMovies.slice();
         favMovies.filter((cur, index) => {
@@ -25,7 +24,7 @@ export default function (state = initialState, action) {
             return {
                 favMovies,
             }
-        case DELETE_MOVIE_RATED:
+        case DELETE_MOVIE_FAVORITE:
             return {
                 favMovies,
             }

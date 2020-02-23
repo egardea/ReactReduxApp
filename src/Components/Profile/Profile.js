@@ -1,12 +1,13 @@
-import React, { useState  } from 'react'
+import React, { useState } from 'react'
 import {Link} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {logOut} from '../../Actions/Session';
 import {deleteFavorite} from '../../Actions/MovieActions/MovieFavorite';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes, faRoad } from '@fortawesome/free-solid-svg-icons';
+import {deleteRatedMovie} from '../../Actions/MovieActions/MovieRated';
 
 import './Profile.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 const Profile = () => {
 
@@ -22,12 +23,19 @@ const Profile = () => {
     const [page, setPage] = useState(1);
 
     const deleteItem = (e) => {
-        if(e.target.id === 'delete-btn'){
-            console.log(e.target.parentNode.dataset.id);
+        if(e.target.id !== 'delete-btn') return;
+        if(currentMediaString === 'Favorite Movies') {
             dispatch(deleteFavorite(e.target.parentNode.dataset.id));
+            setCurrentMedia(favMovies);
+        } else if(currentMediaString === 'Favorite TV') {
+            setCurrentMedia(favTV);
+        } else if(currentMediaString === 'Rated Movies'){
+            dispatch(deleteRatedMovie(e.target.parentNode.dataset.id));
+            setCurrentMedia(ratedMovie);
+        } else if(currentMediaString === 'Rated TV'){
+            setCurrentMedia(ratedTV);
         }
     }
-
     const renderMedia = (type, array, pageNum) => {
         let media;
         let lastIndex = pageNum * 12;
@@ -83,6 +91,7 @@ const Profile = () => {
                 <div>
                     <h4>{cur.title}</h4>
                     <p>{cur.genres[0].name}</p>
+                    <p>You rated {cur.ourRating} <FontAwesomeIcon icon={faStar} /></p>
                 </div>
             </Link>
             </div>
@@ -101,6 +110,7 @@ const Profile = () => {
                 <div>
                     <h4>{cur.title}</h4>
                     <p>{cur.genres[0].name}</p>
+                    <p>You rated {cur.ourRating} <FontAwesomeIcon icon={faStar} /></p>
                 </div>
             </Link>
             </div>
@@ -173,7 +183,7 @@ const Profile = () => {
             <section className="profile-media-container">
                 <div className="profile-media-wrapper" onClick={deleteItem}>
 
-                    {renderMedia(currentMediaString, currentMedia, page)}
+                {renderMedia(currentMediaString, currentMedia, page)}
                     
                 </div>
             </section>

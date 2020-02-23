@@ -16,7 +16,7 @@ import detailsMovie from '../../Actions/MovieActions/MovieDetails';
 import reviewsMovie from '../../Actions/MovieActions/MovieReviews';
 import trailersMovie from '../../Actions/MovieActions/MovieTrailers';
 import {favoriteMovie} from '../../Actions/MovieActions/MovieFavorite';
-import ratedMovie from '../../Actions/MovieActions/MovieRated';
+import {ratedMovie} from '../../Actions/MovieActions/MovieRated';
 
 import creditsTV from '../../Actions/TVActions/TVCredits';
 import detailsTV from '../../Actions/TVActions/TVDetails';
@@ -38,6 +38,7 @@ class MediaDetails extends Component {
     }
     isDuplicate = (id, array) => {
         let duplicate = false;
+        console.log(array)
         if(array.length > 0) {
             array.forEach((cur) => {
                 if(cur.id === id){
@@ -50,27 +51,31 @@ class MediaDetails extends Component {
     }
     sendFavToStorage = () => {
         let type = this.props.match.params.type;
-        if(type === 'movie' && this.isDuplicate(this.props.movieDetails.id, this.props.movieFavorite) === false) {
+        if(type === 'movie' && this.isDuplicate(this.props.movieDetails.id, this.props.movieFavorite) === false && this.props.session === 'guest') {
             this.props.favoriteMovie({
                 id: this.props.movieDetails.id, title: this.props.movieDetails.title, genres: this.props.movieDetails.genres, img:  this.props.movieDetails.poster_path
             })
-        } else if(type === 'tv' && this.isDuplicate(this.props.tvDetails.id, this.props.tvFavorite) === false) {
+        } else if(type === 'tv' && this.isDuplicate(this.props.tvDetails.id, this.props.tvFavorite) === false && this.props.session === 'guest') {
             this.props.favoriteTV({
                 id: this.props.tvDetails.id, title: this.props.tvDetails.original_name, genres: this.props.tvDetails.genres, img: this.props.tvDetails.poster_path
             })
+        } else if(this.props.session === 'public') {
+            alert('Please use Guest Login to use this feature');
         }
     }
     sendRatedToStorage = () => {
         let type = this.props.match.params.type;
         const ratingNum = parseInt(document.querySelector('select').value) * 2;
-        if(type === 'movie' && this.isDuplicate(this.props.movieDetails.id, this.props.movieRated) === false && this.props.token !== null) {
+        if(type === 'movie' && this.isDuplicate(this.props.movieDetails.id, this.props.movieRated) === false && this.props.session === 'guest') {
             this.props.ratedMovie({
                 id: this.props.movieDetails.id, title: this.props.movieDetails.title, genres: this.props.movieDetails.genres, img: this.props.movieDetails.poster_path, ourRating: ratingNum
             });
-        } else if(type === 'tv' && this.isDuplicate(this.props.tvDetails.id, this.props.tvRated) === false  && this.props.token !== null) {
+        } else if(type === 'tv' && this.isDuplicate(this.props.tvDetails.id, this.props.tvRated) === false  && this.props.session === 'guest') {
             this.props.ratedTV({
                 id: this.props.tvDetails.id, title: this.props.tvDetails.original_name, genres: this.props.tvDetails.genres, img: this.props.tvDetails.poster_path, ourRating: ratingNum
             })
+        } else if(this.props.session === 'public') {
+            alert('Please use Guest Login to use this feature');
         }
     }
     displayRating = (e) => {
@@ -253,6 +258,7 @@ const mapStateToProps = state => ({
     config: state.apiKeyConfig,
     type: state.setMediaType,
     token: state.session.token,
+    session: state.session.session,
 
     movieCredits: state.movieCredits,
     movieDetails: state.movieDetails,

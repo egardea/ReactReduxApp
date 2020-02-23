@@ -1,12 +1,19 @@
-import {MOVIE_RATED} from '../Types';
+import {MOVIE_RATED, DELETE_MOVIE_RATED} from '../Types';
 
 const saveData = payload => ({
     type: MOVIE_RATED,
     payload
 })
 
-const ratedMovie = movie => dispatch => {
+const deleteRated = payload => ({
+    type: DELETE_MOVIE_RATED,
+    payload
+})
+export const ratedMovie = movie => dispatch => {
     dispatch(saveData(movie));
 }
 
-export default ratedMovie;
+export const deleteRatedMovie = movie => dispatch => {
+    dispatch(deleteRated(movie));
+}
+

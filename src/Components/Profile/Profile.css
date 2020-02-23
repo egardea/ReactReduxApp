@@ -306,7 +306,7 @@
 }
 @media only screen and (max-width: 867px) {
     .profile-media-container {
-        overflow: scroll;
+        overflow:auto;
     }
     .profile-media-wrapper{
         grid-template-columns: repeat(3, 133px);
