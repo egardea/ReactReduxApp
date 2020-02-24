@@ -22,8 +22,8 @@ import creditsTV from '../../Actions/TVActions/TVCredits';
 import detailsTV from '../../Actions/TVActions/TVDetails';
 import reviewsTV from '../../Actions/TVActions/TVReviews';
 import trailersTV from '../../Actions/TVActions/TVTrailers';
-import favoriteTV from '../../Actions/TVActions/TVFavorite';
-import ratedTV from '../../Actions/TVActions/TVRated';
+import {favoriteTV} from '../../Actions/TVActions/TVFavorite';
+import {ratedTV} from '../../Actions/TVActions/TVRated';
 
 class MediaDetails extends Component {
 
@@ -101,6 +101,16 @@ class MediaDetails extends Component {
             this.props.trailersTV(`https://api.themoviedb.org/3/tv/${id}/videos?api_key=${this.props.apiKey}&language=en-US`);
         }
     }
+    formatNumber = (num) => {
+        //We use fix to set 2 decimal points
+        let newArr = parseInt(num).toFixed(2).toString().split('').reverse();
+        //we loop through the newArr starting at index 6 and move up by 4 elements to insert the comma
+        for(let i = 6; newArr.length > i; i+=4){
+            newArr.splice([i], 0, ',');
+        }
+        //we return the array by reversing it and turning it into a string
+        return newArr.reverse().join('');
+    }
 
     config = this.props.config.images;
 
@@ -131,9 +141,9 @@ class MediaDetails extends Component {
                     <img src={this.config && this.props.movieDetails.poster_path ? this.config.secure_base_url + this.config.poster_sizes[3] + this.props.movieDetails.poster_path : ''} alt={this.props.movieDetails.title} />
                     <div>
                         <h2>{this.props.movieDetails.title}</h2>
-                        <div><span className="rated"><Stars rating={this.props.movieDetails.vote_average} /></span> | <span className="favorite-media" onClick={this.sendFavToStorage}><FontAwesomeIcon icon={faHeart} /></span></div>
+                        <div>{this.props.movieDetails.vote_average} <span className="rated"><Stars rating={this.props.movieDetails.vote_average} /></span> | <span className="favorite-media" onClick={this.sendFavToStorage}><FontAwesomeIcon icon={faHeart} /></span></div>
                         <p>{this.props.movieDetails.status}</p>
-                        <p>{this.props.movieDetails.budget}</p>
+                        <p>Budget ${this.formatNumber(this.props.movieDetails.budget)}</p>
                         <p>{this.props.movieDetails.genres ? this.props.movieDetails.genres[0].name : ''}</p>
                     </div>
                     
@@ -168,7 +178,7 @@ class MediaDetails extends Component {
                         <h2>{this.props.tvDetails.name}</h2>
                         <div><span className="rated" onClick={this.sendRatedToStorage}><Stars rating={this.props.tvDetails.vote_average} /></span> | <span className="favorite-media" onClick={this.sendFavToStorage}><FontAwesomeIcon icon={faHeart} /></span></div>
                         <p>{this.props.tvDetails.status}</p>
-                        <p>{this.props.movieDetails.budget}</p>
+                        <p>Budget ${this.formatNumber(this.props.movieDetails.budget)}</p>
                         <p>{this.props.tvDetails.genres ? this.props.tvDetails.genres[0].name : ''}</p>
                     </div>
                 </div>

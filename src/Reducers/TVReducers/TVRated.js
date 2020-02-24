@@ -10,7 +10,7 @@ export default function(state = initialState, action) {
         const newItem = action.payload;
         ratedTV = state.ratedTV.slice();
         ratedTV.push(newItem);
-    } else if(action.type === 'DELETE_MOVIE_RATED'){
+    } else if(action.type === 'DELETE_TV_RATED'){
         const id = action.payload;
         ratedTV = state.ratedTV.slice();
         ratedTV.filter((cur, index) => {

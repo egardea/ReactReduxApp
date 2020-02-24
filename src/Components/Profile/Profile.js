@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import {logOut} from '../../Actions/Session';
 import {deleteFavorite} from '../../Actions/MovieActions/MovieFavorite';
 import {deleteRatedMovie} from '../../Actions/MovieActions/MovieRated';
+import {deleteFavTV} from '../../Actions/TVActions/TVFavorite';
+import {deleteRatedTV} from '../../Actions/TVActions/TVRated';
 
 import './Profile.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -28,11 +30,13 @@ const Profile = () => {
             dispatch(deleteFavorite(e.target.parentNode.dataset.id));
             setCurrentMedia(favMovies);
         } else if(currentMediaString === 'Favorite TV') {
+            dispatch(deleteFavTV(e.target.parentNode.dataset.id));
             setCurrentMedia(favTV);
         } else if(currentMediaString === 'Rated Movies'){
             dispatch(deleteRatedMovie(e.target.parentNode.dataset.id));
             setCurrentMedia(ratedMovie);
         } else if(currentMediaString === 'Rated TV'){
+            dispatch(deleteRatedTV(e.target.parentNode.dataset.id));
             setCurrentMedia(ratedTV);
         }
     }
@@ -61,7 +65,7 @@ const Profile = () => {
             )): 'Please Favorite Movies To See';
         } else if(type === 'Favorite TV') {
             media = newArr.length > 0 ? newArr.map((cur, index) => (
-                <div key={cur.id} data-id={cur} className="profile-slide">
+                <div key={cur.id} data-id={cur.id} className="profile-slide">
                     <div id="delete-btn">
                         <div></div>
                         <div></div>
