@@ -180,6 +180,7 @@ const Profile = () => {
                     <button className='profile-btn' name="ratedMovies">Rated Movies</button>
                     <button className='profile-btn' name="ratedTV">Rated TV</button>
                 </div>
+                <Link to={'/'}>Home</Link>
             </section>
 
             <div>

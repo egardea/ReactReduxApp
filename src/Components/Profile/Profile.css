@@ -32,6 +32,7 @@
     position: absolute;
     top: 0;
     transition: all ease-in-out 500ms;
+    align-items: center;
 }
 .ham-btn-container {
     display: none;
@@ -43,6 +44,19 @@
     align-content: center;
     align-items: center;
     margin-bottom: 25px;
+}
+.toggle-btn-container {
+    width: 100%;
+    justify-content: space-evenly;
+}
+.profile-nav-container > a {
+    color: #f4f4f4;
+    background: #b4b4b4;
+    height: 25px;
+    width: 100px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 10px;
 }
 .avatar-figure{
     height: 150px;
