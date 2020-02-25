@@ -42,6 +42,7 @@
     flex-direction: column;
     align-content: center;
     align-items: center;
+    margin-bottom: 25px;
 }
 .avatar-figure{
     height: 150px;
@@ -91,7 +92,7 @@
 .profile-media-container{
     height: 100vh;
     margin: 0;
-    padding: 0;
+    padding: 0 0 25px 0;
 }
 #profile-container > div > h1{
     padding: 30px 0;
@@ -302,7 +303,7 @@
     .change .bar3 {
         -webkit-transform: rotate(45deg) translate(-8px, -8px);
         transform: rotate(45deg) translate(-8px, -8px);
-    }    
+    }
 }
 @media only screen and (max-width: 867px) {
     .profile-media-container {
@@ -319,6 +320,9 @@
         z-index: 1;
         top: 0;
         left: 0;
+    }
+    .profile-slide #delete-btn {
+        visibility: visible;
     }
 }
 @media only screen and (max-width: 567px) {

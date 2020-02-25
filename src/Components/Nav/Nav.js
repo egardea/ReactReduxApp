@@ -5,6 +5,7 @@ import './Nav.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faSearch, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import Logo from './flix.png'
 
 class nav extends Component {
 
@@ -22,7 +23,9 @@ class nav extends Component {
             <nav className="nav">
                 <div className="nav-icon">
                     <span>
-                        Flix
+                        <Link to={'/'}>
+                        <img src={Logo} alt='logo' />
+                        </Link>
                     </span>
                 </div>
                 <div>

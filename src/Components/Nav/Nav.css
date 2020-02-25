@@ -11,6 +11,10 @@
     color: white;
     margin-left: 5px;
 }
+.nav-icon > span > a > img{
+    height: 50px;
+    width: auto;
+}
 #nav_search--form{
     width: 100%;
     transition: all 500ms;
