@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom'
 import './Nav.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faSearch, faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import Logo from './flix.png'
+import { faHome, faSearch, faUserCircle, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 
 class nav extends Component {
 
@@ -24,7 +23,7 @@ class nav extends Component {
                 <div className="nav-icon">
                     <span>
                         <Link to={'/'}>
-                        <img src={Logo} alt='logo' />
+                            <FontAwesomeIcon icon={faPlayCircle} />
                         </Link>
                     </span>
                 </div>

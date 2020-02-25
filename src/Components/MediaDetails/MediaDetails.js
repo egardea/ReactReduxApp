@@ -118,7 +118,7 @@ class MediaDetails extends Component {
             return (
             <header>
 
-                <span><FontAwesomeIcon icon={faCaretLeft} /></span>
+                <span onClick={() => this.props.history.goBack()}><FontAwesomeIcon icon={faCaretLeft} /></span>
                 <span id="rating-container-btn" onClick={this.displayRating}>{this.state.displayRating === false ? <FontAwesomeIcon icon={faStar} /> : <FontAwesomeIcon icon={faTimes} /> }</span>
                 <div className="rating-container">
                     <div>
@@ -152,7 +152,7 @@ class MediaDetails extends Component {
             case 'tv' :
             return (
             <header>
-                <span><FontAwesomeIcon icon={faCaretLeft} /></span>
+                <span onClick={() => this.props.history.goBack()}><FontAwesomeIcon icon={faCaretLeft} /></span>
                 <span id="rating-container-btn" onClick={this.displayRating}>{this.state.displayRating === false ? <FontAwesomeIcon icon={faStar} /> : <FontAwesomeIcon icon={faTimes} /> }</span>
                 <div className="rating-container">
                     <div>

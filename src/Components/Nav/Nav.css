@@ -11,9 +11,9 @@
     color: white;
     margin-left: 5px;
 }
-.nav-icon > span > a > img{
-    height: 50px;
-    width: auto;
+.nav-icon > span > a{
+    color: white;
+    font-size: 2rem;
 }
 #nav_search--form{
     width: 100%;

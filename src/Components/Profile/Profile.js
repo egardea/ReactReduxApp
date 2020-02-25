@@ -26,18 +26,30 @@ const Profile = () => {
 
     const deleteItem = (e) => {
         if(e.target.id !== 'delete-btn') return;
+        const alert = () => {
+            setTimeout(() => {
+                document.querySelector('.deleted-alert').classList.remove('deactivate-alert');
+                setTimeout(() => {
+                    document.querySelector('.deleted-alert').classList.add('deactivate-alert');
+                }, 2000)
+            }, 1000)
+        }
         if(currentMediaString === 'Favorite Movies') {
             dispatch(deleteFavorite(e.target.parentNode.dataset.id));
             setCurrentMedia(favMovies);
+            alert();
         } else if(currentMediaString === 'Favorite TV') {
             dispatch(deleteFavTV(e.target.parentNode.dataset.id));
             setCurrentMedia(favTV);
+            alert();
         } else if(currentMediaString === 'Rated Movies'){
             dispatch(deleteRatedMovie(e.target.parentNode.dataset.id));
             setCurrentMedia(ratedMovie);
+            alert();
         } else if(currentMediaString === 'Rated TV'){
             dispatch(deleteRatedTV(e.target.parentNode.dataset.id));
             setCurrentMedia(ratedTV);
+            alert();
         }
     }
     const renderMedia = (type, array, pageNum) => {
@@ -148,6 +160,7 @@ const Profile = () => {
         } else if(element === 'Rated TV') {
             mediaArr = setCurrentMedia(ratedTV);
         }
+        setPage(1);
         return mediaArr;
     }
     const changePages = (e) => {
@@ -182,9 +195,9 @@ const Profile = () => {
                 </div>
                 <Link to={'/'}>Home</Link>
             </section>
-
             <div>
             <h1>{currentMediaString}</h1>
+            <div className="deleted-alert deactivate-alert"><p>Deleted</p></div>
             <section className="profile-media-container">
                 <div className="profile-media-wrapper" onClick={deleteItem}>
 
