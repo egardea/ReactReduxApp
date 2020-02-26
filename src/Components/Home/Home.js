@@ -25,6 +25,7 @@ import './Home.css'
 class Home extends Component {
 
     componentDidMount() {
+        //check if the media type state has been changed and call on that function that loads the data
         if(this.props.itemType === 'MOVIE') {
             this.getMovieData();
         } else if(this.props.itemType === 'TV') {
@@ -46,6 +47,7 @@ class Home extends Component {
     }
     
     render() {
+        //init the Swiper slides
         (() => {
             const slideEl = document.querySelectorAll('.media-container');
             if(!slideEl){
@@ -75,7 +77,8 @@ class Home extends Component {
                 }
             });
         })();
-
+        
+        //we declare a variable that is changed depending on the media type state
         let media;
         if(this.props.itemType === 'MOVIE') {
             media = 
