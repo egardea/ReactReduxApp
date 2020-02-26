@@ -24,9 +24,9 @@ const Profile = () => {
     const [currentMedia, setCurrentMedia] = useState(favMovies);
     const [page, setPage] = useState(1);
 
-    const deleteItem = (e) => {
-        if(e.target.id !== 'delete-btn') return;
+    const deleteItem = () => {
         //displays the 'deleted' message onced clicked
+        const id = document.getElementById('delete-btn').dataset.id;
         const alert = () => {
             setTimeout(() => {
                 document.querySelector('.deleted-alert').classList.remove('deactivate-alert');
@@ -39,19 +39,19 @@ const Profile = () => {
         //by setting the hook state again the updated media reloads
         //calls the alert
         if(currentMediaString === 'Favorite Movies') {
-            dispatch(deleteFavorite(e.target.parentNode.dataset.id));
+            dispatch(deleteFavorite(id));
             setCurrentMedia(favMovies);
             alert();
         } else if(currentMediaString === 'Favorite TV') {
-            dispatch(deleteFavTV(e.target.parentNode.dataset.id));
+            dispatch(deleteFavTV(id));
             setCurrentMedia(favTV);
             alert();
         } else if(currentMediaString === 'Rated Movies'){
-            dispatch(deleteRatedMovie(e.target.parentNode.dataset.id));
+            dispatch(deleteRatedMovie(id));
             setCurrentMedia(ratedMovie);
             alert();
         } else if(currentMediaString === 'Rated TV'){
-            dispatch(deleteRatedTV(e.target.parentNode.dataset.id));
+            dispatch(deleteRatedTV(id));
             setCurrentMedia(ratedTV);
             alert();
         }
@@ -65,8 +65,8 @@ const Profile = () => {
         //returns the media we want to see by checking the state hook
         if(type === 'Favorite Movies') {
             media = newArr.length > 0 ? newArr.map((cur, index) => (
-                <div key={cur.id} data-id={cur.id} className="profile-slide">
-                    <div id="delete-btn">
+                <div key={cur.id} className="profile-slide">
+                    <div id="delete-btn" data-id={cur.id} onClick={deleteItem}>
                         <div></div>
                         <div></div>
                     </div>
@@ -83,8 +83,8 @@ const Profile = () => {
             )): 'Please Favorite Movies To See';
         } else if(type === 'Favorite TV') {
             media = newArr.length > 0 ? newArr.map((cur, index) => (
-                <div key={cur.id} data-id={cur.id} className="profile-slide">
-                    <div id="delete-btn">
+                <div key={cur.id} className="profile-slide">
+                    <div id="delete-btn" data-id={cur.id} onClick={deleteItem}>
                         <div></div>
                         <div></div>
                     </div>
@@ -101,8 +101,8 @@ const Profile = () => {
             )): 'Please Favorite TV To See';
         } else if(type === 'Rated Movies') {
             media = newArr.length > 0 ? newArr.map((cur, index) => (
-                <div key={cur.id} data-id={cur.id} className="profile-slide">
-                    <div id="delete-btn">
+                <div key={cur.id} className="profile-slide">
+                    <div id="delete-btn" data-id={cur.id} onClick={deleteItem}>
                         <div></div>
                         <div></div>
                     </div>
@@ -120,8 +120,8 @@ const Profile = () => {
             )): 'Please Favorite TV To See';
         } else if(type === 'Rated TV') {
             media = newArr.length > 0 ? newArr.map((cur, index) => (
-                <div key={cur.id} data-id={cur.id} className="profile-slide">
-                    <div id="delete-btn">
+                <div key={cur.id} className="profile-slide">
+                    <div id="delete-btn" data-id={cur.id} onClick={deleteItem}>
                         <div></div>
                         <div></div>
                     </div>
@@ -210,7 +210,7 @@ const Profile = () => {
             <h1>{currentMediaString}</h1>
             <div className="deleted-alert deactivate-alert"><p>Deleted</p></div>
             <section className="profile-media-container">
-                <div className="profile-media-wrapper" onClick={deleteItem}>
+                <div className="profile-media-wrapper">
 
                 {renderMedia(currentMediaString, currentMedia, page)}
                     

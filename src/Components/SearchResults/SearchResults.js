@@ -21,6 +21,7 @@ class SearchResults extends Component{
         this.props.searchResult(`https://api.themoviedb.org/3/search/multi?api_key=${this.props.apiKey}&language=en-US&query=${this.props.match.params.id}&page=${this.state.page}&include_adult=false`);
     }
 
+    //checks if there is a new search string and updates data
     componentDidUpdate(nextProps) {
         if(this.props.match.params.id !== nextProps.id){
             this.props.searchResult(`https://api.themoviedb.org/3/search/multi?api_key=${this.props.apiKey}&language=en-US&query=${this.props.match.params.id}&page=${this.state.page}&include_adult=false&region=US`);
