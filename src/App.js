@@ -8,6 +8,7 @@ import SearchResults from './Components/SearchResults/SearchResults';
 import MediaDetails from './Components/MediaDetails/MediaDetails';
 import Profile from './Components/Profile/Profile';
 import Login from './Components/Profile/Login';
+import Loader from '../src/Components/Loader/Loader'
 
 import apiKeyConfig from './Actions/ApiKeyConfig';
 import searchTrending from './Actions/MovieActions/Trending';

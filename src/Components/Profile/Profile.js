@@ -11,6 +11,8 @@ import './Profile.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
+import Loader from '../Loader/Loader';
+
 const Profile = () => {
 
     const config = useSelector(state => state.apiKeyConfig.images);
@@ -211,7 +213,7 @@ const Profile = () => {
             <div className="deleted-alert deactivate-alert"><p>Deleted</p></div>
             <section className="profile-media-container">
                 <div className="profile-media-wrapper">
-
+                    
                 {renderMedia(currentMediaString, currentMedia, page)}
                     
                 </div>
