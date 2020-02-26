@@ -357,6 +357,9 @@
     .profile-btn{
         margin-bottom: 10px;
     }
+    .profile-slide #delete-btn {
+        visibility: visible;
+    }
 }
 @media only screen and (max-width: 867px) {
     .profile-media-container {
