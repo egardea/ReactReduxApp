@@ -26,6 +26,7 @@ const Profile = () => {
 
     const deleteItem = (e) => {
         if(e.target.id !== 'delete-btn') return;
+        //displays the 'deleted' message onced clicked
         const alert = () => {
             setTimeout(() => {
                 document.querySelector('.deleted-alert').classList.remove('deactivate-alert');
@@ -34,6 +35,9 @@ const Profile = () => {
                 }, 2000)
             }, 1000)
         }
+        //checks for hook state to match the condition for each dispatch action that takes in the ID we want to delete
+        //by setting the hook state again the updated media reloads
+        //calls the alert
         if(currentMediaString === 'Favorite Movies') {
             dispatch(deleteFavorite(e.target.parentNode.dataset.id));
             setCurrentMedia(favMovies);
@@ -53,10 +57,12 @@ const Profile = () => {
         }
     }
     const renderMedia = (type, array, pageNum) => {
+        //we use splice to only display 12 items at a time
         let media;
         let lastIndex = pageNum * 12;
         let firstIndex = lastIndex -12;
         let newArr = array.slice(firstIndex, lastIndex);
+        //returns the media we want to see by checking the state hook
         if(type === 'Favorite Movies') {
             media = newArr.length > 0 ? newArr.map((cur, index) => (
                 <div key={cur.id} data-id={cur.id} className="profile-slide">
@@ -135,10 +141,12 @@ const Profile = () => {
         return media;
     }
     const hamburgerMenu = (e) => {
+        //toggles the navigation for mobile mode
         e.target.classList.toggle('change');
         e.target.parentNode.classList.toggle('slide-profile-nav-container');
     }
     const mediaButtons = (e) => {
+        //handles the styling of the navidation buttons
         const mediaButtons = document.querySelectorAll('.profile-btn');       
         const element = e.target.innerText;
         if(e.target.tagName === 'BUTTON') {
@@ -150,6 +158,7 @@ const Profile = () => {
                 cur = cur.innerText === element ? cur.classList.add('active-btn') : '';
             });
         }
+        //sets the currentmedia hook according to the button pressed
         let mediaArr;
         if(element === 'Favorite Movies') {
             mediaArr = setCurrentMedia(favMovies);
@@ -160,11 +169,13 @@ const Profile = () => {
         } else if(element === 'Rated TV') {
             mediaArr = setCurrentMedia(ratedTV);
         }
+        //sets the pagination back to one if button is clicked
         setPage(1);
         return mediaArr;
     }
     const changePages = (e) => {
         const id = e.target.id;
+        //handles the pagination navigation by setting adding or subtracting to the page hook
         if(id === 'prev') {
             setPage(page === 1 ? 1 : page - 1);
         } else if(id === 'next') {
