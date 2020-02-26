@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import './HomeSlider.css'
 
 const HomeSlider = (props) => {
-
+    //init the slider from Swiper
     (() => {
             const sliderEl = document.querySelector('.homeslider-container');
             if(!sliderEl) {
@@ -31,6 +31,7 @@ const HomeSlider = (props) => {
     const type = props.itemType;
 
     const getGenreStr = id => {
+        //takes two arrays, one passed by the Home component that we loop throught to find the matching ID we want to display and return the string name to that ID
         let mainGenre;
         props.genreList.forEach((genre) => {
             if(genre.id === id[0]) {
