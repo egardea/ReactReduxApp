@@ -7,10 +7,12 @@ import './Profile.css';
 
 class Login extends Component {
 
+    //checks if there is a token number and sends the token to redux
     createGuestSession = () => {
         if(this.props.token === null) {
             this.props.getSession(`https://api.themoviedb.org/3/authentication/guest_session/new?api_key=${this.props.apiKey}`, 'guest');
         } else if (this.props.token !== null) {
+            //checks if there is already a token and allows for login again
             this.props.getSession(this.props.token, 'guest');
         } else {
             alert('You have a token already GREEDY!');
