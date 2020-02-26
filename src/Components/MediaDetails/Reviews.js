@@ -3,6 +3,7 @@ import React from 'react'
 const Reviews = (props) => {
 
     const readMore = (e) => {
+        //we use event on the parent to set the height and button text for the reviews
         if(e.target.className === 'reviews-toggle') {
             let button = e.target;
             let review = e.target.previousSibling;

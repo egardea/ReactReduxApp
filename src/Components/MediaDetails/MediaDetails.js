@@ -34,6 +34,7 @@ class MediaDetails extends Component {
         }
     }
     componentDidMount() {
+        //callback function for component details
         this.getMediaData(this.props.match.params.id);
     }
     isDuplicate = (id, array) => {
@@ -50,8 +51,10 @@ class MediaDetails extends Component {
         return duplicate;
     }
     sendFavToStorage = () => {
+        //checks immediately if session is public and returns an error alert
         if(this.props.session === 'public') return alert('Please use Guest Login to use this feature');
         let type = this.props.match.params.type;
+        //checks for 3 conditions and sends the new favorite media to the redux state
         if(type === 'movie' && this.isDuplicate(this.props.movieDetails.id, this.props.movieFavorite) === false && this.props.session === 'guest') {
             this.props.favoriteMovie({
                 id: this.props.movieDetails.id, title: this.props.movieDetails.title, genres: this.props.movieDetails.genres, img:  this.props.movieDetails.poster_path
@@ -63,7 +66,9 @@ class MediaDetails extends Component {
         }
     }
     sendRatedToStorage = () => {
+        //checks immediately if session is public and returns an error alert
         if(this.props.session === 'public') return alert('Please use Guest Login to use this feature');
+        //checks for 3 conditions in order to send the new rated media to the redux state with the set rating
         let type = this.props.match.params.type;
         const ratingNum = parseInt(document.querySelector('select').value) * 2;
         if(type === 'movie' && this.isDuplicate(this.props.movieDetails.id, this.props.movieRated) === false && this.props.session === 'guest') {
@@ -76,7 +81,8 @@ class MediaDetails extends Component {
             })
         }
     }
-    displayRating = (e) => {
+    displayRating = () => {
+        //function listens for a click to toggle the component state to true or false aswell as toggle between classes to display rating container
         const parent = document.querySelector('.rating-container');
         if(this.state.displayRating === false){
             this.setState({displayRating : true});
@@ -87,6 +93,7 @@ class MediaDetails extends Component {
         }
     }
     getMediaData = (id, type = this.props.match.params.type) => {
+        //we check the type of media derived from the props passed by the component and call the dispatch functions accordingly
         if(type === 'movie') {
             this.props.creditsMovie(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${this.props.apiKey}`);
             this.props.detailsMovie(`https://api.themoviedb.org/3/movie/${id}?api_key=${this.props.apiKey}&language=en-US`);
@@ -100,13 +107,13 @@ class MediaDetails extends Component {
         }
     }
     formatNumber = (num) => {
-        //We use fix to set 2 decimal points
+        //We use fix to set 2 decimal points turn it into an array and reverse 
         let newArr = parseInt(num).toFixed(2).toString().split('').reverse();
         //we loop through the newArr starting at index 6 and move up by 4 elements to insert the comma
         for(let i = 6; newArr.length > i; i+=4){
             newArr.splice([i], 0, ',');
         }
-        //we return the array by reversing it and turning it into a string
+        //we return the array by reversing it and turning it back into a string
         return newArr.reverse().join('');
     }
 
