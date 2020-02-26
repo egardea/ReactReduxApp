@@ -5,19 +5,21 @@
     box-sizing: border-box;
 }
 /*deleted alert styles*/
-.deactivate-alert{
-    visibility: hidden;
-}
 .deleted-alert{
     position: absolute;
     top: 0;
     left: 40%;
     color: #f4f4f4;
-    background: red;
+    background: #333;
     padding: 10px;
     z-index: 2;
     font-size: 2rem;
     text-transform: uppercase;
+    transform: translate(0, 0);
+    transition-duration: 250ms;
+}
+.deactivate-alert{
+    transform: translate(0, -100px);
 }
 
 /**Left Navigation styles*/
@@ -278,6 +280,9 @@
     border-radius: 5px;
     margin: 10px 0;
 }
+.login-wrapper > button:last-child{
+    border: 3px solid #333;
+}
 @media only screen and (max-height: 836px) {
     .profile-media-container{
         height: 100%;
@@ -285,7 +290,7 @@
         padding-bottom: 150px;
     }
     .profile-btn-container {
-        z-index: 10;
+        z-index: 1;
     }
     .profile-nav-container > div:not(.ham-btn-container) {
         height: 45%;
@@ -294,6 +299,7 @@
 @media only screen and (max-width: 1400px) {
     .profile-nav-container{
         width: 250px;
+        z-index: 999;
     }
 }
 @media only screen and (max-width: 1000px) {

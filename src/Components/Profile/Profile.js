@@ -30,12 +30,13 @@ const Profile = () => {
         //displays the 'deleted' message onced clicked
         const id = document.getElementById('delete-btn').dataset.id;
         const alert = () => {
+            const deletedAlert = document.querySelector('.deleted-alert');
             setTimeout(() => {
-                document.querySelector('.deleted-alert').classList.remove('deactivate-alert');
+                deletedAlert.classList.remove('deactivate-alert');
                 setTimeout(() => {
-                    document.querySelector('.deleted-alert').classList.add('deactivate-alert');
-                }, 2000)
-            }, 1000)
+                    deletedAlert.classList.add('deactivate-alert');
+                }, 1000);
+            }, 1000);
         }
         //checks for hook state to match the condition for each dispatch action that takes in the ID we want to delete
         //by setting the hook state again the updated media reloads

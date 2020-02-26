@@ -54,15 +54,24 @@ class MediaDetails extends Component {
         //checks immediately if session is public and returns an error alert
         if(this.props.session === 'public') return alert('Please use Guest Login to use this feature');
         let type = this.props.match.params.type;
+        const sentMsg = document.querySelector('.sent');
         //checks for 3 conditions and sends the new favorite media to the redux state
         if(type === 'movie' && this.isDuplicate(this.props.movieDetails.id, this.props.movieFavorite) === false && this.props.session === 'guest') {
             this.props.favoriteMovie({
                 id: this.props.movieDetails.id, title: this.props.movieDetails.title, genres: this.props.movieDetails.genres, img:  this.props.movieDetails.poster_path
-            })
+            });
+            sentMsg.classList.remove('deactivate-sent');
+            setTimeout(() => {
+                sentMsg.classList.add('deactivate-sent');
+            }, 1000);
         } else if(type === 'tv' && this.isDuplicate(this.props.tvDetails.id, this.props.tvFavorite) === false && this.props.session === 'guest') {
             this.props.favoriteTV({
                 id: this.props.tvDetails.id, title: this.props.tvDetails.original_name, genres: this.props.tvDetails.genres, img: this.props.tvDetails.poster_path
-            })
+            });
+            sentMsg.classList.remove('deactivate-sent');
+            setTimeout(() => {
+                sentMsg.classList.add('deactivate-sent');
+            }, 1000);
         }
     }
     sendRatedToStorage = () => {
@@ -70,15 +79,24 @@ class MediaDetails extends Component {
         if(this.props.session === 'public') return alert('Please use Guest Login to use this feature');
         //checks for 3 conditions in order to send the new rated media to the redux state with the set rating
         let type = this.props.match.params.type;
+        const sentMsg = document.querySelector('.sent');
         const ratingNum = parseInt(document.querySelector('select').value) * 2;
         if(type === 'movie' && this.isDuplicate(this.props.movieDetails.id, this.props.movieRated) === false && this.props.session === 'guest') {
             this.props.ratedMovie({
                 id: this.props.movieDetails.id, title: this.props.movieDetails.title, genres: this.props.movieDetails.genres, img: this.props.movieDetails.poster_path, ourRating: ratingNum
             });
+            sentMsg.classList.remove('deactivate-sent');
+            setTimeout(() => {
+                sentMsg.classList.add('deactivate-sent');
+            }, 1000);
         } else if(type === 'tv' && this.isDuplicate(this.props.tvDetails.id, this.props.tvRated) === false  && this.props.session === 'guest') {
             this.props.ratedTV({
                 id: this.props.tvDetails.id, title: this.props.tvDetails.original_name, genres: this.props.tvDetails.genres, img: this.props.tvDetails.poster_path, ourRating: ratingNum
-            })
+            });
+            sentMsg.classList.remove('deactivate-sent');
+            setTimeout(() => {
+                sentMsg.classList.add('deactivate-sent');
+            }, 1000);
         }
     }
     displayRating = () => {
@@ -124,7 +142,7 @@ class MediaDetails extends Component {
             case 'movie':
             return (
             <header>
-
+                
                 <span onClick={() => this.props.history.goBack()}><FontAwesomeIcon icon={faCaretLeft} /></span>
                 <span id="rating-container-btn" onClick={this.displayRating}>{this.state.displayRating === false ? <FontAwesomeIcon icon={faStar} /> : <FontAwesomeIcon icon={faTimes} /> }</span>
                 <div className="rating-container">
@@ -139,6 +157,7 @@ class MediaDetails extends Component {
                         <button onClick={this.sendRatedToStorage}>Send Rating</button>
                     </div>
                 </div>
+                <div className="sent deactivate-sent"><span>Sent!</span></div>
                 <figure>
                     <img src={this.config && this.props.movieDetails.backdrop_path ? this.config.secure_base_url + this.config.backdrop_sizes[2] + this.props.movieDetails.backdrop_path : ''} alt={this.props.movieDetails.title} />
                 </figure>
@@ -159,6 +178,7 @@ class MediaDetails extends Component {
             case 'tv' :
             return (
             <header>
+                
                 <span onClick={() => this.props.history.goBack()}><FontAwesomeIcon icon={faCaretLeft} /></span>
                 <span id="rating-container-btn" onClick={this.displayRating}>{this.state.displayRating === false ? <FontAwesomeIcon icon={faStar} /> : <FontAwesomeIcon icon={faTimes} /> }</span>
                 <div className="rating-container">
@@ -173,6 +193,7 @@ class MediaDetails extends Component {
                         <button onClick={this.sendRatedToStorage}>Send Rating</button>
                     </div>
                 </div>
+                <div className="sent deactivate-sent"><span>Sent!</span></div>
                 <figure>
                     <img src={this.config && this.props.tvDetails.backdrop_path ? this.config.secure_base_url + this.config.backdrop_sizes[2] + this.props.tvDetails.backdrop_path : ''} alt={this.props.tvDetails.name} />
                 </figure>
