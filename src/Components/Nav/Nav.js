@@ -11,7 +11,8 @@ class nav extends Component {
     state = { 
         text: '',
     }
-
+    
+    //changes the state with string taken from the nav search input
     onChange = e => {
         this.setState({text: e.target.value});
     }
