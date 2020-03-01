@@ -7,15 +7,20 @@
     position: absolute;
     z-index: 9;
     top: 0;
-    left: 50%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background: transparent;
+    transform: translate(0, 0);
+    transition-duration: 500ms;
+}
+.sent > span {
     padding: 10px;
     border-radius: 0 0 5px 5px;
     background: #333;
     opacity: 0.8;
     color: #f9f9f9;
     font-size: 2rem;
-    transform: translate(0, 0);
-    transition-duration: 500ms;
 }
 .deactivate-sent{
     transform: translate(0, -100px);
@@ -133,7 +138,6 @@ header > figure > img {
 }
 .animate-rating-container{
     transform: translate(0, 0);
-
 }
 #rating-container-btn {
     position: absolute;

@@ -39,15 +39,22 @@ class MediaDetails extends Component {
     }
     isDuplicate = (id, array) => {
         let duplicate = false;
-        console.log(array)
+        const sentMsg = document.querySelector('.sent');
         if(array.length > 0) {
             array.forEach((cur) => {
                 if(cur.id === id){
                     duplicate = true;
-                    alert('Error Cannot Add Any Duplicates');
+                    sentMsg.innerHTML = "<span>Error No Duplicates</span>";
+                    sentMsg.classList.remove('deactivate-sent');
+                    setTimeout(() => {
+                        sentMsg.classList.add('deactivate-sent');
+                    }, 1000);
+                    setTimeout(() => {
+                        sentMsg.innerHTML = "<span>Sent!</span>";
+                    }, 1100)
                 }
             });
-        } 
+        }
         return duplicate;
     }
     sendFavToStorage = () => {
