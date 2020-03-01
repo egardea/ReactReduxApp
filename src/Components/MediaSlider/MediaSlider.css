@@ -6,7 +6,7 @@
 }
 .media-btn-prev, .media-btn-next{
     position: absolute;
-    top: 37%;
+    top: 155px;
     color: #f4f4f4;
     font-size: 50px;
     z-index: 1;
@@ -56,6 +56,9 @@
     }
     .media-slide{
         padding: 0 25px;
+    }
+    .media-btn-prev, .media-btn-next{
+        top: 135px;
     }
 }
 @media only screen and  (max-width: 525px){
