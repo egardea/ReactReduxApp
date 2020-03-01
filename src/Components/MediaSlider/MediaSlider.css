@@ -4,6 +4,10 @@
     width: 75%;
     margin: auto;
 }
+.media-container h1{
+    color: #333;
+    text-indent: 10px;
+}
 .media-btn-prev, .media-btn-next{
     position: absolute;
     top: 155px;
