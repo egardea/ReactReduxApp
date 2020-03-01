@@ -62,4 +62,7 @@
     .media-slide{
         padding: 0 10px;
     }
+    .media-container{
+        width: 100%;
+    }
 }
