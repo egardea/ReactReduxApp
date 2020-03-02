@@ -9,6 +9,7 @@ const MediaSlider = (props) => {
 
     const config = props.config;
     const slides =  props.slides;
+    const type = props.type;
 
     return (
         <div className="swiper-container media-container">
@@ -20,8 +21,8 @@ const MediaSlider = (props) => {
                             <figure className="media-figure">
                                 <img src={`${config.images ? config.images.secure_base_url : ''}${config.images ? config.images.poster_sizes[6] : ''}${cur.poster_path}`} alt={cur.title} />
                             </figure>
-                            <h4>{cur.title}</h4>
-                            <p>Genre</p>
+                            <h4>{type === 'MOVIE' ? cur.title : cur.original_name}</h4>
+                            <p>{}</p>
                         </Link>
                     )) : ''}
                 </div>
