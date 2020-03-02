@@ -12,9 +12,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 class SearchResults extends Component{
-
-    state = {
-        page: 1
+    constructor(props){
+        super(props);
+        this.state = {
+            page: 1,
+        }
     }
 
     componentDidMount() {
@@ -25,6 +27,15 @@ class SearchResults extends Component{
     componentDidUpdate(nextProps) {
         if(this.props.match.params.id !== nextProps.id){
             this.props.searchResult(`https://api.themoviedb.org/3/search/multi?api_key=${this.props.apiKey}&language=en-US&query=${this.props.match.params.id}&page=${this.state.page}&include_adult=false&region=US`);
+        }
+    }
+
+    searchPagination = (e) => {
+        const id = e.target.id;
+        if(id === "search-prev") {
+            this.setState({page: this.state.page === 1 ? this.state.page : this.state.page - 1});
+        } else if(id === "search-next") {
+            this.setState({page: this.state.page === this.props.searchResults.total_pages ? this.state.page : this.state.page + 1});
         }
     }
 
@@ -49,6 +60,10 @@ class SearchResults extends Component{
                             </Link>
                         )) : ''}
     
+                    </div>
+
+                    <div className="search-results-pagination" onClick={this.searchPagination}>
+                        <button id="search-prev">Previous</button>Page {this.state.page}<button id="search-next">Next</button>
                     </div>
     
                 </div>
