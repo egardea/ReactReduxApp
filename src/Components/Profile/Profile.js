@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {Link} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {logOut} from '../../Actions/Session';
@@ -29,33 +29,26 @@ const Profile = () => {
     const deleteItem = () => {
         //displays the 'deleted' message onced clicked
         const id = document.getElementById('delete-btn').dataset.id;
+        const deletedAlert = document.querySelector('.deleted-alert');
         const alert = () => {
-            const deletedAlert = document.querySelector('.deleted-alert');
+            deletedAlert.classList.remove('deactivate-alert');
             setTimeout(() => {
-                deletedAlert.classList.remove('deactivate-alert');
-                setTimeout(() => {
-                    deletedAlert.classList.add('deactivate-alert');
-                }, 1000);
+                deletedAlert.classList.add('deactivate-alert');
             }, 1000);
         }
         //checks for hook state to match the condition for each dispatch action that takes in the ID we want to delete
-        //by setting the hook state again the updated media reloads
         //calls the alert
         if(currentMediaString === 'Favorite Movies') {
             dispatch(deleteFavorite(id));
-            setCurrentMedia(favMovies);
             alert();
         } else if(currentMediaString === 'Favorite TV') {
             dispatch(deleteFavTV(id));
-            setCurrentMedia(favTV);
             alert();
         } else if(currentMediaString === 'Rated Movies'){
             dispatch(deleteRatedMovie(id));
-            setCurrentMedia(ratedMovie);
             alert();
         } else if(currentMediaString === 'Rated TV'){
             dispatch(deleteRatedTV(id));
-            setCurrentMedia(ratedTV);
             alert();
         }
     }
@@ -185,6 +178,20 @@ const Profile = () => {
             setPage(page === Math.ceil(currentMedia.length/12) ? page : page + 1);
         }
     }
+
+    useEffect(() => {
+        let reloadMedia;
+        if(currentMediaString === 'Favorite Movies') {
+            reloadMedia = favMovies;
+        } else if(currentMediaString === 'Favorite TV') {
+            reloadMedia = favTV;
+        } else if(currentMediaString === 'Rated Movies'){
+            reloadMedia = ratedMovie;
+        } else if(currentMediaString === 'Rated TV'){
+            reloadMedia = ratedTV;
+        }
+        setCurrentMedia(reloadMedia);
+    },[setCurrentMedia, currentMediaString, favMovies, favTV, ratedMovie, ratedTV]);
 
     return (
         <div id="profile-container">
