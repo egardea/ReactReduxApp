@@ -154,21 +154,8 @@ const Profile = () => {
                 cur = cur.innerText === element ? cur.classList.add('active-btn') : '';
             });
         }
-        //sets the currentmedia hook according to the button pressed
-        let mediaArr;
-        if(element === 'Favorite Movies') {
-            mediaArr = favMovies;
-        } else if(element === 'Favorite TV') {
-            mediaArr = favTV;
-        } else if(element === 'Rated Movies') {
-            mediaArr = ratedMovie;
-        } else if(element === 'Rated TV') {
-            mediaArr = ratedTV;
-        }
-        setCurrentMedia(mediaArr);
         //sets the page back to one if button is clicked
         setPage(1);
-        return mediaArr;
     }
 
     useEffect(() => {
@@ -201,10 +188,10 @@ const Profile = () => {
                     <Link to={'/'} onClick={() => dispatch(logOut('public'))}>Log Out</Link>
                 </div>
                 <div className="toggle-btn-container" onClick={mediaButtons}>
-                    <button className='profile-btn active-btn' name="favMovies">Favorite Movies</button>
-                    <button className='profile-btn' name="favTV">Favorite TV</button>
-                    <button className='profile-btn' name="ratedMovies">Rated Movies</button>
-                    <button className='profile-btn' name="ratedTV">Rated TV</button>
+                    <button className='profile-btn active-btn' name="favMovies" onClick={() => setCurrentMedia(favMovies)}>Favorite Movies</button>
+                    <button className='profile-btn' name="favTV" onClick={() => setCurrentMedia(favTV)}>Favorite TV</button>
+                    <button className='profile-btn' name="ratedMovies" onClick={() => setCurrentMedia(ratedMovie)}>Rated Movies</button>
+                    <button className='profile-btn' name="ratedTV" onClick={() => setCurrentMedia(ratedTV)}>Rated TV</button>
                 </div>
                 <Link to={'/'}>Home</Link>
             </section>
