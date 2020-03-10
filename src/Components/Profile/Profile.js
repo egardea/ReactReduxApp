@@ -157,26 +157,18 @@ const Profile = () => {
         //sets the currentmedia hook according to the button pressed
         let mediaArr;
         if(element === 'Favorite Movies') {
-            mediaArr = setCurrentMedia(favMovies);
+            mediaArr = favMovies;
         } else if(element === 'Favorite TV') {
-            mediaArr = setCurrentMedia(favTV);
+            mediaArr = favTV;
         } else if(element === 'Rated Movies') {
-            mediaArr = setCurrentMedia(ratedMovie);
+            mediaArr = ratedMovie;
         } else if(element === 'Rated TV') {
-            mediaArr = setCurrentMedia(ratedTV);
+            mediaArr = ratedTV;
         }
-        //sets the pagination back to one if button is clicked
+        setCurrentMedia(mediaArr);
+        //sets the page back to one if button is clicked
         setPage(1);
         return mediaArr;
-    }
-    const changePages = (e) => {
-        const id = e.target.id;
-        //handles the pagination navigation by setting adding or subtracting to the page hook
-        if(id === 'prev') {
-            setPage(page === 1 ? 1 : page - 1);
-        } else if(id === 'next') {
-            setPage(page === Math.ceil(currentMedia.length/12) ? page : page + 1);
-        }
     }
 
     useEffect(() => {
@@ -226,9 +218,9 @@ const Profile = () => {
                     
                 </div>
             </section>
-            <section className="profile-btn-container" onClick={changePages}>
-                <button id="prev" className="prev-profile">Previous</button> Page {page}
-                <button id="next" className="next-profile">Next</button>
+            <section className="profile-btn-container">
+                <button id="prev" className="prev-profile" onClick={() => setPage(page === 1 ? 1 : page - 1)}>Previous</button> Page {page} of {Math.ceil(currentMedia.length/12)}
+                <button id="next" className="next-profile" onClick={() => setPage(page === Math.ceil(currentMedia.length/12) ? page : page + 1)}>Next</button>
             </section>
             </div>
         </div>
