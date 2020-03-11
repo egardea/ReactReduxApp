@@ -31,11 +31,25 @@ class MediaDetails extends Component {
         super(props);
         this.state = {
             displayRating: false,
+            isFavorited: false
         }
     }
     componentDidMount() {
         //callback function for component details
         this.getMediaData(this.props.match.params.id);
+        //checks if its favorited and set the state to true
+        if(this.isFavorited(this.props.movieDetails.id, this.props.movieFavorite) === true) {this.setState({isFavorited: true})}
+    }
+    isFavorited = (id, array) => {
+        let duplicate = false;
+        if(array.length > 0) {
+            array.forEach((cur) => {
+                if(cur.id === id){
+                    duplicate = true;
+                }
+            });
+        }
+        return duplicate;
     }
     isDuplicate = (id, array) => {
         let duplicate = false;
@@ -57,28 +71,28 @@ class MediaDetails extends Component {
         }
         return duplicate;
     }
+    alert = () => {
+        const sentMsg = document.querySelector('.sent');
+        sentMsg.classList.remove('deactivate-sent');
+        setTimeout(() => {
+            sentMsg.classList.add('deactivate-sent');
+        }, 1000);
+    }
     sendFavToStorage = () => {
         //checks immediately if session is public and returns an error alert
         if(this.props.session === 'public') return alert('Please use Guest Login to use this feature');
         let type = this.props.match.params.type;
-        const sentMsg = document.querySelector('.sent');
         //checks for 3 conditions and sends the new favorite media to the redux state
         if(type === 'movie' && this.isDuplicate(this.props.movieDetails.id, this.props.movieFavorite) === false && this.props.session === 'guest') {
             this.props.favoriteMovie({
                 id: this.props.movieDetails.id, title: this.props.movieDetails.title, genres: this.props.movieDetails.genres, img:  this.props.movieDetails.poster_path
             });
-            sentMsg.classList.remove('deactivate-sent');
-            setTimeout(() => {
-                sentMsg.classList.add('deactivate-sent');
-            }, 1000);
+            this.alert();
         } else if(type === 'tv' && this.isDuplicate(this.props.tvDetails.id, this.props.tvFavorite) === false && this.props.session === 'guest') {
             this.props.favoriteTV({
                 id: this.props.tvDetails.id, title: this.props.tvDetails.original_name, genres: this.props.tvDetails.genres, img: this.props.tvDetails.poster_path
             });
-            sentMsg.classList.remove('deactivate-sent');
-            setTimeout(() => {
-                sentMsg.classList.add('deactivate-sent');
-            }, 1000);
+            this.alert();
         }
     }
     sendRatedToStorage = () => {
@@ -86,24 +100,17 @@ class MediaDetails extends Component {
         if(this.props.session === 'public') return alert('Please use Guest Login to use this feature');
         //checks for 3 conditions in order to send the new rated media to the redux state with the set rating
         let type = this.props.match.params.type;
-        const sentMsg = document.querySelector('.sent');
         const ratingNum = parseInt(document.querySelector('select').value) * 2;
         if(type === 'movie' && this.isDuplicate(this.props.movieDetails.id, this.props.movieRated) === false && this.props.session === 'guest') {
             this.props.ratedMovie({
                 id: this.props.movieDetails.id, title: this.props.movieDetails.title, genres: this.props.movieDetails.genres, img: this.props.movieDetails.poster_path, ourRating: ratingNum
             });
-            sentMsg.classList.remove('deactivate-sent');
-            setTimeout(() => {
-                sentMsg.classList.add('deactivate-sent');
-            }, 1000);
+            this.alert();
         } else if(type === 'tv' && this.isDuplicate(this.props.tvDetails.id, this.props.tvRated) === false  && this.props.session === 'guest') {
             this.props.ratedTV({
                 id: this.props.tvDetails.id, title: this.props.tvDetails.original_name, genres: this.props.tvDetails.genres, img: this.props.tvDetails.poster_path, ourRating: ratingNum
             });
-            sentMsg.classList.remove('deactivate-sent');
-            setTimeout(() => {
-                sentMsg.classList.add('deactivate-sent');
-            }, 1000);
+            this.alert();
         }
     }
     displayRating = () => {
@@ -172,7 +179,12 @@ class MediaDetails extends Component {
                     <img src={this.config && this.props.movieDetails.poster_path ? this.config.secure_base_url + this.config.poster_sizes[3] + this.props.movieDetails.poster_path : ''} alt={this.props.movieDetails.title} />
                     <div>
                         <h2>{this.props.movieDetails.title}</h2>
-                        <div>{this.props.movieDetails.vote_average} <span className="rated"><Stars rating={this.props.movieDetails.vote_average} /></span> | <span className="favorite-media" onClick={this.sendFavToStorage}><FontAwesomeIcon icon={faHeart} /></span></div>
+                        <div>{this.props.movieDetails.vote_average} <span className="rated"><Stars rating={this.props.movieDetails.vote_average} /></span> | 
+                        {this.state.isFavorited === true ? 
+                        <span style={{color: 'red'}} className="favorite-media" onClick={this.sendFavToStorage}><FontAwesomeIcon icon={faHeart} /></span> :
+                        <span style={{color: '#ffffff'}} className="favorite-media" onClick={this.sendFavToStorage}><FontAwesomeIcon icon={faHeart} /></span>
+                        }
+                        </div>
                         <p>{this.props.movieDetails.status}</p>
                         <p>Budget ${this.formatNumber(this.props.movieDetails.budget)}</p>
                         <p>{this.props.movieDetails.genres ? this.props.movieDetails.genres[0].name : ''}</p>
