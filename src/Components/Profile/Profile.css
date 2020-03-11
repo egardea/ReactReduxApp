@@ -185,8 +185,10 @@
     background-color: #333;
     cursor: pointer;
     visibility: hidden;
+    color: #f4f4f4;
+    font-size: 2rem;
 }
-.profile-slide .delete-btn > div:first-child{
+/*.profile-slide .delete-btn > div:first-child{
     transform: rotate(-45deg) translate(-10px, 16px);
     height: 3px;
     width: 30px;
@@ -197,7 +199,7 @@
     height: 3px;
     width: 30px;
     background: #f4f4f4;
-}
+}*/
 .profile-slide:hover .delete-btn{
     visibility: visible;
 }

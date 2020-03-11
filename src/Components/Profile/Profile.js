@@ -9,7 +9,7 @@ import {deleteRatedTV} from '../../Actions/TVActions/TVRated';
 
 import './Profile.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import Loader from '../Loader/Loader';
 
@@ -26,16 +26,17 @@ const Profile = () => {
     const [currentMedia, setCurrentMedia] = useState(favMovies);
     const [page, setPage] = useState(1);
 
-    const deleteItem = (e) => {
+    const alert = () => {
         //displays the 'deleted' message onced clicked
-        const id = e.target.dataset.id;
         const deletedAlert = document.querySelector('.deleted-alert');
-        const alert = () => {
-            deletedAlert.classList.remove('deactivate-alert');
-            setTimeout(() => {
-                deletedAlert.classList.add('deactivate-alert');
-            }, 1000);
-        }
+        deletedAlert.classList.remove('deactivate-alert');
+        setTimeout(() => {
+            deletedAlert.classList.add('deactivate-alert');
+        }, 1000);
+    }
+    const deleteItem = (e) => {
+        //gets id from data attr
+        const id = e.target.dataset.id;
         //checks for hook state to match the condition for each dispatch action that takes in the ID we want to delete
         //calls the alert
         if(currentMediaString === 'Favorite Movies' && id !== undefined && !isNaN(id)) {
@@ -62,10 +63,9 @@ const Profile = () => {
         if(type === 'Favorite Movies') {
             media = newArr.length > 0 ? newArr.map((cur, index) => (
                 <div key={cur.id} className="profile-slide">
-                    <div className="delete-btn" data-id={cur.id} onClick={deleteItem}>
-                        <div></div>
-                        <div></div>
-                    </div>
+                    <button className="delete-btn" data-id={cur.id} onClick={deleteItem}>
+                        <FontAwesomeIcon data-id={cur.id} icon={faTimes} />
+                    </button>
                 <Link to={`/details/movie/${cur.id}`}>
                 <figure className="profile-figure">
                 <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur.img : ''} alt={cur.title} />
@@ -80,10 +80,9 @@ const Profile = () => {
         } else if(type === 'Favorite TV') {
             media = newArr.length > 0 ? newArr.map((cur, index) => (
                 <div key={cur.id} className="profile-slide">
-                    <div className="delete-btn" data-id={cur.id} onClick={deleteItem}>
-                        <div></div>
-                        <div></div>
-                    </div>
+                    <button className="delete-btn" data-id={cur.id} onClick={deleteItem}>
+                        <FontAwesomeIcon data-id={cur.id} icon={faTimes} />
+                    </button>
                 <Link to={`/details/tv/${cur.id}`} key={cur.id} className="profile-slide">
                 <figure className="profile-figure">
                 <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur.img : ''} alt={cur.title} />
@@ -98,10 +97,9 @@ const Profile = () => {
         } else if(type === 'Rated Movies') {
             media = newArr.length > 0 ? newArr.map((cur, index) => (
                 <div key={cur.id} className="profile-slide">
-                    <div className="delete-btn" data-id={cur.id} onClick={deleteItem}>
-                        <div></div>
-                        <div></div>
-                    </div>
+                    <button className="delete-btn" data-id={cur.id} onClick={deleteItem}>
+                        <FontAwesomeIcon data-id={cur.id} icon={faTimes} />
+                    </button>
                 <Link to={`/details/movie/${cur.id}`} key={cur.id} className="profile-slide">
                 <figure className="profile-figure">
                 <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur.img : ''} alt={cur.title} />
@@ -117,10 +115,9 @@ const Profile = () => {
         } else if(type === 'Rated TV') {
             media = newArr.length > 0 ? newArr.map((cur, index) => (
                 <div key={cur.id} className="profile-slide">
-                    <div className="delete-btn" data-id={cur.id} onClick={deleteItem}>
-                        <div></div>
-                        <div></div>
-                    </div>
+                    <button className="delete-btn" data-id={cur.id} onClick={deleteItem}>
+                        <FontAwesomeIcon data-id={cur.id} icon={faTimes} />
+                    </button>
                 <Link to={`/details/tv/${cur.id}`} key={cur.id} className="profile-slide">
                 <figure className="profile-figure">
                 <img src={config ? config.secure_base_url + config.poster_sizes[2] + cur.img : ''} alt={cur.title} />

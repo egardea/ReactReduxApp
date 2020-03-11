@@ -78,6 +78,12 @@ class MediaDetails extends Component {
             sentMsg.classList.add('deactivate-sent');
         }, 1000);
     }
+    isFavoriteColorChange = () => {
+        const star = document.querySelector('favorite-media');
+        if(star){
+            return star.style.color = 'red';
+        }
+    }
     sendFavToStorage = () => {
         //checks immediately if session is public and returns an error alert
         if(this.props.session === 'public') return alert('Please use Guest Login to use this feature');
@@ -88,11 +94,13 @@ class MediaDetails extends Component {
                 id: this.props.movieDetails.id, title: this.props.movieDetails.title, genres: this.props.movieDetails.genres, img:  this.props.movieDetails.poster_path
             });
             this.alert();
+            this.isFavoriteColorChange();
         } else if(type === 'tv' && this.isDuplicate(this.props.tvDetails.id, this.props.tvFavorite) === false && this.props.session === 'guest') {
             this.props.favoriteTV({
                 id: this.props.tvDetails.id, title: this.props.tvDetails.original_name, genres: this.props.tvDetails.genres, img: this.props.tvDetails.poster_path
             });
             this.alert();
+            this.isFavoriteColorChange();
         }
     }
     sendRatedToStorage = () => {
