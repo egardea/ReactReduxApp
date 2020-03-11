@@ -38,10 +38,11 @@ class MediaDetails extends Component {
         //callback function for component details
         this.getMediaData(this.props.match.params.id);
         //checks if its favorited and set the state to true
-        if(this.isFavorited(this.props.movieDetails.id, this.props.movieFavorite) === true) {this.setState({isFavorited: true})}
+        if(this.isFavorited(this.props.match.params.id, this.props.movieFavorite) === true && this.props.session === 'guest') {this.setState({isFavorited: true})}
     }
     isFavorited = (id, array) => {
         let duplicate = false;
+        id = parseInt(id);
         if(array.length > 0) {
             array.forEach((cur) => {
                 if(cur.id === id){
@@ -79,9 +80,8 @@ class MediaDetails extends Component {
         }, 1000);
     }
     isFavoriteColorChange = () => {
-        const star = document.querySelector('favorite-media');
-        if(star){
-            return star.style.color = 'red';
+        if(document.querySelector('.favorite-media')){
+            document.querySelector('.favorite-media').style.color = 'red';
         }
     }
     sendFavToStorage = () => {
