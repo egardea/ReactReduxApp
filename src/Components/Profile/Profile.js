@@ -26,9 +26,9 @@ const Profile = () => {
     const [currentMedia, setCurrentMedia] = useState(favMovies);
     const [page, setPage] = useState(1);
 
-    const deleteItem = () => {
+    const deleteItem = (e) => {
         //displays the 'deleted' message onced clicked
-        const id = document.getElementById('delete-btn').dataset.id;
+        const id = e.target.dataset.id;
         const deletedAlert = document.querySelector('.deleted-alert');
         const alert = () => {
             deletedAlert.classList.remove('deactivate-alert');
@@ -38,16 +38,16 @@ const Profile = () => {
         }
         //checks for hook state to match the condition for each dispatch action that takes in the ID we want to delete
         //calls the alert
-        if(currentMediaString === 'Favorite Movies') {
+        if(currentMediaString === 'Favorite Movies' && id !== undefined && !isNaN(id)) {
             dispatch(deleteFavorite(id));
             alert();
-        } else if(currentMediaString === 'Favorite TV') {
+        } else if(currentMediaString === 'Favorite TV' && id !== undefined && !isNaN(id)) {
             dispatch(deleteFavTV(id));
             alert();
-        } else if(currentMediaString === 'Rated Movies'){
+        } else if(currentMediaString === 'Rated Movies' && id !== undefined && !isNaN(id)){
             dispatch(deleteRatedMovie(id));
             alert();
-        } else if(currentMediaString === 'Rated TV'){
+        } else if(currentMediaString === 'Rated TV' && id !== undefined && !isNaN(id)){
             dispatch(deleteRatedTV(id));
             alert();
         }
@@ -62,7 +62,7 @@ const Profile = () => {
         if(type === 'Favorite Movies') {
             media = newArr.length > 0 ? newArr.map((cur, index) => (
                 <div key={cur.id} className="profile-slide">
-                    <div id="delete-btn" data-id={cur.id} onClick={deleteItem}>
+                    <div className="delete-btn" data-id={cur.id} onClick={deleteItem}>
                         <div></div>
                         <div></div>
                     </div>
@@ -80,7 +80,7 @@ const Profile = () => {
         } else if(type === 'Favorite TV') {
             media = newArr.length > 0 ? newArr.map((cur, index) => (
                 <div key={cur.id} className="profile-slide">
-                    <div id="delete-btn" data-id={cur.id} onClick={deleteItem}>
+                    <div className="delete-btn" data-id={cur.id} onClick={deleteItem}>
                         <div></div>
                         <div></div>
                     </div>
@@ -98,7 +98,7 @@ const Profile = () => {
         } else if(type === 'Rated Movies') {
             media = newArr.length > 0 ? newArr.map((cur, index) => (
                 <div key={cur.id} className="profile-slide">
-                    <div id="delete-btn" data-id={cur.id} onClick={deleteItem}>
+                    <div className="delete-btn" data-id={cur.id} onClick={deleteItem}>
                         <div></div>
                         <div></div>
                     </div>
@@ -117,7 +117,7 @@ const Profile = () => {
         } else if(type === 'Rated TV') {
             media = newArr.length > 0 ? newArr.map((cur, index) => (
                 <div key={cur.id} className="profile-slide">
-                    <div id="delete-btn" data-id={cur.id} onClick={deleteItem}>
+                    <div className="delete-btn" data-id={cur.id} onClick={deleteItem}>
                         <div></div>
                         <div></div>
                     </div>
