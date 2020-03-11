@@ -38,7 +38,8 @@ class MediaDetails extends Component {
         //callback function for component details
         this.getMediaData(this.props.match.params.id);
         //checks if its favorited and set the state to true
-        if(this.isFavorited(this.props.match.params.id, this.props.movieFavorite) === true && this.props.session === 'guest') {this.setState({isFavorited: true})}
+        let mediaTypeArray = this.props.match.params.type === 'movie' ? this.props.movieFavorite : this.props.tvFavorite;
+        if(this.isFavorited(this.props.match.params.id, mediaTypeArray) === true && this.props.session === 'guest') {this.setState({isFavorited: true})}
     }
     isFavorited = (id, array) => {
         let duplicate = false;
@@ -229,7 +230,12 @@ class MediaDetails extends Component {
                     <img src={this.config && this.props.tvDetails.poster_path ? this.config.secure_base_url + this.config.poster_sizes[3] + this.props.tvDetails.poster_path : ''} alt={this.props.tvDetails.title} />
                     <div>
                         <h2>{this.props.tvDetails.name}</h2>
-                        <div><span className="rated" onClick={this.sendRatedToStorage}><Stars rating={this.props.tvDetails.vote_average} /></span> | <span className="favorite-media" onClick={this.sendFavToStorage}><FontAwesomeIcon icon={faHeart} /></span></div>
+                        <div><span className="rated" onClick={this.sendRatedToStorage}><Stars rating={this.props.tvDetails.vote_average} /></span> | 
+                        {this.state.isFavorited === true ? 
+                        <span style={{color: 'red'}} className="favorite-media" onClick={this.sendFavToStorage}><FontAwesomeIcon icon={faHeart} /></span> :
+                        <span style={{color: '#ffffff'}} className="favorite-media" onClick={this.sendFavToStorage}><FontAwesomeIcon icon={faHeart} /></span>
+                        }
+                        </div>
                         <p>{this.props.tvDetails.status}</p>
                         <p>Budget ${this.formatNumber(this.props.movieDetails.budget)}</p>
                         <p>{this.props.tvDetails.genres ? this.props.tvDetails.genres[0].name : ''}</p>
